@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { invocarFuncion, supabase } from "../lib/supabase";
+import { IPADE_LOGO_URL } from "../lib/constantes";
 import Cronometro, { FASES } from "../componentes/Cronometro";
 
 interface Grupo {
@@ -160,8 +161,13 @@ export default function VistaProfesor() {
       <div className="min-h-screen bg-navy-50 flex items-center justify-center p-6">
         <div className="w-full max-w-sm">
           <div className="text-center mb-8">
+            <img
+              src={IPADE_LOGO_URL}
+              alt="IPADE Business School"
+              className="w-14 h-14 object-contain mx-auto mb-3"
+            />
             <h1 className="text-2xl font-bold text-navy-700 font-display">Acceso de Profesor</h1>
-            <p className="text-neutral-500 text-sm mt-1">Simulador de Analisis Causal</p>
+            <p className="text-neutral-500 text-sm mt-1">Simuladores IPADE</p>
           </div>
           <form onSubmit={autenticar} className="bg-white rounded-lg shadow-sm border border-neutral-200 p-8 space-y-4">
             <div>
@@ -193,9 +199,12 @@ export default function VistaProfesor() {
   return (
     <div className="min-h-screen bg-navy-50">
       <header className="bg-navy-700 text-white px-6 py-3 flex items-center justify-between">
-        <div>
-          <h1 className="text-lg font-bold font-display">Panel del Profesor</h1>
-          <p className="text-navy-200 text-xs">Simulador de Analisis Causal — IPADE</p>
+        <div className="flex items-center gap-3">
+          <img src={IPADE_LOGO_URL} alt="IPADE" className="h-9 w-9 object-contain" />
+          <div>
+            <h1 className="text-lg font-bold font-display">Panel del Profesor</h1>
+            <p className="text-navy-200 text-xs">Simuladores IPADE — Direccion de Operaciones</p>
+          </div>
         </div>
         {grupoActivo && (
           <Cronometro

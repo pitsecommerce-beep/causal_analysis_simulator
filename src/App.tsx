@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { IPADE_LOGO_URL } from "./lib/constantes";
 
 interface Simulador {
   id: string;
@@ -107,19 +108,26 @@ export default function App() {
       {/* Header */}
       <header className="bg-navy-700 text-white">
         <div className="max-w-6xl mx-auto px-6 py-8 lg:py-12">
-          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
-            <div>
-              <p className="text-navy-200 text-sm font-medium tracking-wide uppercase mb-2">
-                IPADE Business School
-              </p>
-              <h1 className="text-3xl lg:text-4xl font-bold font-display leading-tight">
-                Simuladores de Operaciones
-              </h1>
-              <p className="text-navy-200 mt-2 text-sm lg:text-base max-w-xl">
-                Herramientas interactivas para la toma de decisiones basada en datos.
-                Cada simulador plantea un problema real de operaciones que los equipos
-                deben resolver bajo restricciones de tiempo e informacion.
-              </p>
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+            <div className="flex items-start gap-5">
+              <img
+                src={IPADE_LOGO_URL}
+                alt="IPADE Business School"
+                className="w-14 h-14 lg:w-16 lg:h-16 object-contain shrink-0 mt-1"
+              />
+              <div>
+                <p className="text-navy-200 text-sm font-medium tracking-wide uppercase mb-1">
+                  IPADE Business School
+                </p>
+                <h1 className="text-3xl lg:text-4xl font-bold font-display leading-tight">
+                  Simuladores de Operaciones
+                </h1>
+                <p className="text-navy-200 mt-2 text-sm lg:text-base max-w-xl">
+                  Herramientas interactivas para la toma de decisiones basada en datos.
+                  Cada simulador plantea un problema real de operaciones que los equipos
+                  deben resolver bajo restricciones de tiempo e informacion.
+                </p>
+              </div>
             </div>
             <div className="flex items-center gap-4 text-sm">
               <button
@@ -145,7 +153,8 @@ export default function App() {
           ))}
         </div>
 
-        <footer className="mt-12 pt-6 border-t border-neutral-200 text-center">
+        <footer className="mt-12 pt-6 border-t border-neutral-200 flex items-center justify-center gap-2">
+          <img src={IPADE_LOGO_URL} alt="" className="w-5 h-5 object-contain opacity-40" />
           <p className="text-xs text-neutral-400">
             IPADE Business School — Direccion de Operaciones
           </p>

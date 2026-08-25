@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
+import { IPADE_LOGO_URL } from "../lib/constantes";
 
 export default function EntradaAnalisisCausal() {
   const [grupoId, setGrupoId] = useState("");
@@ -35,16 +36,18 @@ export default function EntradaAnalisisCausal() {
           >
             &larr; Simuladores
           </button>
-          <span className="text-xs text-navy-300">IPADE</span>
+          <img src={IPADE_LOGO_URL} alt="IPADE" className="h-8 w-8 object-contain" />
         </div>
       </header>
 
       <div className="flex items-center justify-center p-6 mt-6">
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
-            <div className="inline-flex w-12 h-12 rounded-lg bg-navy-700 text-white items-center justify-center text-sm font-bold mb-4">
-              DAG
-            </div>
+            <img
+              src={IPADE_LOGO_URL}
+              alt="IPADE Business School"
+              className="w-14 h-14 object-contain mx-auto mb-3"
+            />
             <h1 className="text-2xl font-bold text-navy-700 font-display">
               Analisis Causal
             </h1>

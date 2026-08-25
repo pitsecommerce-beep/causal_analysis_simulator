@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { supabase, invocarFuncion } from "../lib/supabase";
+import { IPADE_LOGO_URL } from "../lib/constantes";
 
 interface Veredicto {
   veredicto: string;
@@ -121,9 +122,12 @@ export default function VistaCierre() {
     <div className="min-h-screen bg-navy-50">
       <header className="bg-navy-700 text-white px-6 py-3">
         <div className="max-w-3xl mx-auto flex items-center justify-between">
-          <div>
-            <h1 className="text-lg font-bold font-display">Consejo de Administracion — ETF Bank</h1>
-            <p className="text-navy-200 text-xs">{equipoNombre}</p>
+          <div className="flex items-center gap-3">
+            <img src={IPADE_LOGO_URL} alt="IPADE" className="h-9 w-9 object-contain" />
+            <div>
+              <h1 className="text-lg font-bold font-display">Consejo de Administracion — ETF Bank</h1>
+              <p className="text-navy-200 text-xs">{equipoNombre}</p>
+            </div>
           </div>
           <button
             onClick={() => navigate(-1)}
