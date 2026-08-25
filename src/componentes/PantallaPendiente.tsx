@@ -61,21 +61,21 @@ export default function PantallaPendiente({ usuario, onCambio, onCerrar }: Props
           </div>
 
           <h2 className="text-lg font-semibold text-navy-700 mb-2">
-            Solicitud en revision
+            Solicitud en revisión
           </h2>
           <p className="text-sm text-neutral-500 mb-4">
-            Su cuenta <span className="font-medium text-neutral-700">{usuario.email}</span> esta
-            pendiente de aprobacion por un administrador.
+            <span className="font-medium text-neutral-700">{usuario.email}</span> está
+            pendiente de aprobación.
           </p>
           <p className="text-xs text-neutral-400 mb-6">
-            Esta pagina se actualizara automaticamente cuando su solicitud sea procesada.
+            Se actualizará automáticamente.
           </p>
 
           <button
             onClick={onCerrar}
             className="text-sm text-navy-600 hover:text-navy-800 underline transition-colors duration-200"
           >
-            Cerrar sesion
+            Cerrar sesión
           </button>
         </div>
       </div>

@@ -3,10 +3,10 @@ import { useState, useEffect, useRef } from "react";
 const FASES = [
   { nombre: "Bienvenida y equipos", inicio: 0, fin: 5 },
   { nombre: "Definir el problema", inicio: 5, fin: 15 },
-  { nombre: "Exploracion de datos", inicio: 15, fin: 30 },
-  { nombre: "Hipotesis y espina de pescado", inicio: 30, fin: 40 },
+  { nombre: "Exploración de datos", inicio: 15, fin: 30 },
+  { nombre: "Hipótesis y espina de pescado", inicio: 30, fin: 40 },
   { nombre: "Prueba con el simulador", inicio: 40, fin: 55 },
-  { nombre: "Solucion y contrafactual", inicio: 55, fin: 65 },
+  { nombre: "Solución y contrafactual", inicio: 55, fin: 65 },
   { nombre: "Cierre", inicio: 65, fin: 70 },
 ];
 

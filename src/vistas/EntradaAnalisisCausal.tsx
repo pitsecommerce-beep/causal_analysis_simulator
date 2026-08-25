@@ -21,7 +21,7 @@ export default function EntradaAnalisisCausal() {
     if (data) {
       navigate(`/equipo/${data.id}?nombre=${encodeURIComponent(nombre.trim())}`);
     } else {
-      alert("No se encontro el grupo. Verifique el codigo con su profesor.");
+      alert("No se encontró el grupo. Verifique el código con su profesor.");
     }
   }
 
@@ -49,10 +49,10 @@ export default function EntradaAnalisisCausal() {
               className="w-14 h-14 object-contain mx-auto mb-3"
             />
             <h1 className="text-2xl font-bold text-navy-700 font-display">
-              Analisis Causal
+              Análisis Causal
             </h1>
             <p className="text-neutral-500 text-sm mt-1">
-              ETF Bank / Proceso de tarjetas de credito
+              ETF Bank / Tarjetas de crédito
             </p>
           </div>
 
@@ -63,7 +63,7 @@ export default function EntradaAnalisisCausal() {
                   htmlFor="grupo"
                   className="block text-sm font-medium text-neutral-700 mb-1"
                 >
-                  Codigo de grupo
+                  Código de grupo
                 </label>
                 <input
                   id="grupo"
@@ -71,7 +71,7 @@ export default function EntradaAnalisisCausal() {
                   value={grupoId}
                   onChange={(e) => setGrupoId(e.target.value)}
                   className="w-full rounded-xl border border-neutral-300 px-3 py-2.5 text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-navy-500 focus:border-transparent"
-                  placeholder="Pegue el codigo que le dio el profesor"
+                  placeholder="Pegue el código de su profesor"
                   required
                 />
               </div>

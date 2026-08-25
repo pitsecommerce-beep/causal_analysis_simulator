@@ -40,7 +40,7 @@ const NODOS_INTERVENCION = [
   { valor: "error_captura", etiqueta: "Error de captura" },
   { valor: "reintentos", etiqueta: "Reintentos" },
   { valor: "espera_crop", etiqueta: "Espera CROP" },
-  { valor: "capacitacion_ejecutivo", etiqueta: "Capacitacion del ejecutivo" },
+  { valor: "capacitacion_ejecutivo", etiqueta: "Capacitación del ejecutivo" },
 ];
 
 export default function VistaEquipo() {
@@ -209,7 +209,7 @@ export default function VistaEquipo() {
       } else if (tipoConsulta === "intervenir") {
         const val = Number(valorInt);
         if (isNaN(val)) {
-          setError("El valor de intervencion debe ser numerico");
+          setError("El valor de intervención debe ser numérico");
           setEjecutando(false);
           return;
         }
@@ -262,7 +262,7 @@ export default function VistaEquipo() {
           <img src={IPADE_LOGO_URL} alt="IPADE" className="h-9 w-9 object-contain" />
           <div>
             <h1 className="text-lg font-bold font-display">{equipo.nombre}</h1>
-            <p className="text-navy-200 text-xs">Simulador de Analisis Causal</p>
+            <p className="text-navy-200 text-xs">Simulador de Análisis Causal</p>
           </div>
         </div>
         <div className="flex items-center gap-5">
@@ -270,7 +270,7 @@ export default function VistaEquipo() {
             <div className="text-2xl font-medium font-dato tabular-nums text-gold-400">
               {equipo.creditos_restantes}
             </div>
-            <div className="text-xs text-navy-200">creditos</div>
+            <div className="text-xs text-navy-200">créditos</div>
           </div>
           {inicioMs && <Cronometro inicioMs={inicioMs} />}
         </div>
@@ -319,7 +319,7 @@ export default function VistaEquipo() {
 
               <div>
                 <label htmlFor="hipotesis" className="block text-sm font-medium text-neutral-700 mb-1">
-                  Hipotesis <span className="text-red-500">*</span>
+                  Hipótesis <span className="text-red-500">*</span>
                 </label>
                 <input
                   id="hipotesis"
@@ -327,11 +327,11 @@ export default function VistaEquipo() {
                   value={hipotesis}
                   onChange={(e) => setHipotesis(e.target.value)}
                   className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-navy-500 focus:border-transparent"
-                  placeholder="Escriba su hipotesis antes de ejecutar la consulta"
+                  placeholder="Escriba su hipótesis antes de ejecutar"
                   required
                 />
                 <p className="text-xs text-neutral-500 mt-1">
-                  Formule su hipotesis antes de ver los datos para evitar sesgo de confirmacion.
+                  Formule su hipótesis antes de ver los datos para evitar sesgo de confirmación.
                 </p>
               </div>
 
@@ -426,7 +426,7 @@ export default function VistaEquipo() {
                 {ejecutando
                   ? "Ejecutando..."
                   : sinCreditos
-                    ? "Creditos insuficientes"
+                    ? "Créditos insuficientes"
                     : `Ejecutar consulta (${costoConsulta} cr)`}
               </button>
             </form>
@@ -436,7 +436,7 @@ export default function VistaEquipo() {
           {resultadoPareto && (
             <GraficaPareto
               datos={resultadoPareto}
-              titulo={`Distribucion por ${CAMPOS_CATEGORIA.find((c) => c.valor === campoSeg)?.etiqueta ?? campoSeg}`}
+              titulo={`Distribución por ${CAMPOS_CATEGORIA.find((c) => c.valor === campoSeg)?.etiqueta ?? campoSeg}`}
             />
           )}
 
@@ -445,23 +445,23 @@ export default function VistaEquipo() {
           {resultadoInt && (
             <div className="bg-white border border-neutral-200 rounded-2xl p-5">
               <h4 className="text-sm font-semibold text-navy-700 mb-3">
-                Resultado de intervencion
+                Resultado de intervención
               </h4>
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div className="bg-neutral-50 rounded-xl p-3">
-                  <div className="text-neutral-500 text-xs mb-1">Dias ciclo original (media)</div>
+                  <div className="text-neutral-500 text-xs mb-1">Días ciclo original (media)</div>
                   <div className="text-xl font-medium font-dato text-neutral-700">
                     {(resultadoInt.media_original as number)?.toFixed(1) ?? "-"}
                   </div>
                 </div>
                 <div className="bg-navy-50 rounded-xl p-3">
-                  <div className="text-neutral-500 text-xs mb-1">Dias ciclo contrafactual (media)</div>
+                  <div className="text-neutral-500 text-xs mb-1">Días ciclo contrafactual (media)</div>
                   <div className="text-xl font-medium font-dato text-navy-700">
                     {(resultadoInt.media_contrafactual as number)?.toFixed(1) ?? "-"}
                   </div>
                 </div>
                 <div className="col-span-2 bg-gold-50 rounded-xl p-3">
-                  <div className="text-neutral-500 text-xs mb-1">Reduccion estimada</div>
+                  <div className="text-neutral-500 text-xs mb-1">Reducción estimada</div>
                   <div className="text-xl font-medium font-dato text-gold-800">
                     {(resultadoInt.reduccion_porcentual as number)?.toFixed(1) ?? "-"}%
                   </div>
@@ -475,7 +475,7 @@ export default function VistaEquipo() {
         <div className="space-y-6">
           <div className="bg-white rounded-2xl shadow-sm border border-neutral-200 p-5">
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-sm font-semibold text-navy-700">Bitacora de consultas</h3>
+              <h3 className="text-sm font-semibold text-navy-700">Bitácora de consultas</h3>
               <span className="text-xs text-neutral-500">{consultas.length} consultas</span>
             </div>
             <Bitacora consultas={consultas} />
@@ -507,7 +507,7 @@ export default function VistaEquipo() {
             onClick={() => navigate(`/cierre/${equipo.id}`)}
             className="w-full bg-gold-600 text-white font-medium py-2.5 px-4 rounded-xl text-sm hover:bg-gold-700 transition-all duration-200"
           >
-            Presentar diagnostico al consejo
+            Presentar diagnóstico al consejo
           </button>
         </div>
       </div>

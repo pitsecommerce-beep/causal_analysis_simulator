@@ -7,7 +7,7 @@ const SUPABASE_CONFIGURADO = Boolean(supabaseUrl && supabaseAnonKey);
 
 if (!SUPABASE_CONFIGURADO) {
   console.warn(
-    "[Simulador] Supabase no configurado. Defina VITE_SUPABASE_URL y VITE_SUPABASE_ANON_KEY en .env para habilitar la conexion a datos.",
+    "[Simulador] Supabase no configurado. Defina VITE_SUPABASE_URL y VITE_SUPABASE_ANON_KEY en .env para habilitar la conexión a datos.",
   );
 }
 

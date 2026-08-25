@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import App from "./App";
 import EntradaAnalisisCausal from "./vistas/EntradaAnalisisCausal";
 import VistaEquipo from "./vistas/VistaEquipo";
@@ -100,14 +100,36 @@ function Root() {
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App usuario={usuario} onCerrar={handleCerrar} />} />
+      <AnimatedRoutes
+        usuario={usuario}
+        esDocente={esDocente}
+        onCerrar={handleCerrar}
+      />
+    </BrowserRouter>
+  );
+}
+
+function AnimatedRoutes({
+  usuario,
+  esDocente,
+  onCerrar,
+}: {
+  usuario: Usuario;
+  esDocente: boolean;
+  onCerrar: () => void;
+}) {
+  const location = useLocation();
+
+  return (
+    <div key={location.pathname} className="page-transition">
+      <Routes location={location}>
+        <Route path="/" element={<App usuario={usuario} onCerrar={onCerrar} />} />
         <Route path="/analisis-causal" element={<EntradaAnalisisCausal />} />
         <Route path="/equipo/:grupoId" element={<VistaEquipo />} />
         {esDocente && (
           <Route
             path="/profesor"
-            element={<VistaProfesor usuario={usuario} onCerrar={handleCerrar} />}
+            element={<VistaProfesor usuario={usuario} onCerrar={onCerrar} />}
           />
         )}
         <Route path="/cierre/:equipoId" element={<VistaCierre />} />
@@ -122,7 +144,7 @@ function Root() {
           />
         )}
       </Routes>
-    </BrowserRouter>
+    </div>
   );
 }
 

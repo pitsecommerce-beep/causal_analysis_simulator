@@ -1,10 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { invocarFuncion, supabase } from "../lib/supabase";
 import { IPADE_LOGO_URL } from "../lib/constantes";
 import Cronometro from "../componentes/Cronometro";
 import PanelAdmin from "../componentes/PanelAdmin";
 import type { Usuario } from "../lib/auth";
+import * as XLSX from "xlsx";
+
+interface Participante {
+  nombre: string;
+  email: string;
+  equipo?: string;
+}
 
 interface Grupo {
   id: string;
@@ -13,6 +20,9 @@ interface Grupo {
   fase_actual: number;
   dag_revelado: boolean;
   creado_en: string;
+  imagen_portada?: string;
+  descripcion?: string;
+  participantes_invitados?: Participante[];
 }
 
 interface EquipoResumen {
@@ -36,9 +46,19 @@ export default function VistaProfesor({ usuario, onCerrar }: Props) {
 
   const [nombreGrupo, setNombreGrupo] = useState("");
   const [semilla, setSemilla] = useState(String(Math.floor(Math.random() * 100000)));
+  const [imagenPortada, setImagenPortada] = useState("");
+  const [descripcionGrupo, setDescripcionGrupo] = useState("");
   const [creando, setCreando] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [copiado, setCopiado] = useState(false);
+
+  const [editImagen, setEditImagen] = useState("");
+  const [editDescripcion, setEditDescripcion] = useState("");
+  const [guardandoConfig, setGuardandoConfig] = useState(false);
+  const [configGuardada, setConfigGuardada] = useState(false);
+  const [participantes, setParticipantes] = useState<Participante[]>([]);
+  const [cargandoExcel, setCargandoExcel] = useState(false);
+  const archivoRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     supabase
@@ -49,6 +69,14 @@ export default function VistaProfesor({ usuario, onCerrar }: Props) {
         if (data) setGrupos(data as Grupo[]);
       });
   }, []);
+
+  useEffect(() => {
+    if (!grupoActivo) return;
+    setEditImagen(grupoActivo.imagen_portada ?? "");
+    setEditDescripcion(grupoActivo.descripcion ?? "");
+    setParticipantes(grupoActivo.participantes_invitados ?? []);
+    setConfigGuardada(false);
+  }, [grupoActivo?.id]);
 
   useEffect(() => {
     if (!grupoActivo) return;
@@ -118,6 +146,16 @@ export default function VistaProfesor({ usuario, onCerrar }: Props) {
         },
       );
 
+      if (imagenPortada.trim() || descripcionGrupo.trim()) {
+        await supabase
+          .from("grupos")
+          .update({
+            imagen_portada: imagenPortada.trim() || null,
+            descripcion: descripcionGrupo.trim() || null,
+          })
+          .eq("id", data.grupo_id);
+      }
+
       const { data: nuevoGrupo } = await supabase
         .from("grupos")
         .select("*")
@@ -130,6 +168,8 @@ export default function VistaProfesor({ usuario, onCerrar }: Props) {
       }
       setNombreGrupo("");
       setSemilla(String(Math.floor(Math.random() * 100000)));
+      setImagenPortada("");
+      setDescripcionGrupo("");
     } catch (err) {
       setError((err as Error).message);
     } finally {
@@ -153,6 +193,69 @@ export default function VistaProfesor({ usuario, onCerrar }: Props) {
     setTimeout(() => setCopiado(false), 2000);
   }
 
+  async function guardarConfiguracion() {
+    if (!grupoActivo) return;
+    setGuardandoConfig(true);
+    await supabase
+      .from("grupos")
+      .update({
+        imagen_portada: editImagen.trim() || null,
+        descripcion: editDescripcion.trim() || null,
+      })
+      .eq("id", grupoActivo.id);
+    setGrupoActivo({
+      ...grupoActivo,
+      imagen_portada: editImagen.trim() || undefined,
+      descripcion: editDescripcion.trim() || undefined,
+    });
+    setGuardandoConfig(false);
+    setConfigGuardada(true);
+    setTimeout(() => setConfigGuardada(false), 2000);
+  }
+
+  function descargarPlantilla() {
+    const ws = XLSX.utils.aoa_to_sheet([
+      ["Nombre", "Email", "Equipo"],
+      ["Juan Pérez", "juan@alumni.ipade.mx", "Equipo 1"],
+    ]);
+    ws["!cols"] = [{ wch: 25 }, { wch: 30 }, { wch: 20 }];
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Participantes");
+    XLSX.writeFile(wb, "plantilla_participantes.xlsx");
+  }
+
+  async function procesarExcel(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file || !grupoActivo) return;
+    setCargandoExcel(true);
+
+    const buffer = await file.arrayBuffer();
+    const wb = XLSX.read(buffer);
+    const ws = wb.Sheets[wb.SheetNames[0]];
+    const filas = XLSX.utils.sheet_to_json<Record<string, string>>(ws);
+
+    const lista: Participante[] = filas
+      .filter((r) => r["Email"] || r["email"])
+      .map((r) => ({
+        nombre: (r["Nombre"] || r["nombre"] || "").trim(),
+        email: (r["Email"] || r["email"] || "").trim().toLowerCase(),
+        equipo: (r["Equipo"] || r["equipo"] || "").trim() || undefined,
+      }));
+
+    await supabase
+      .from("grupos")
+      .update({ participantes_invitados: lista })
+      .eq("id", grupoActivo.id);
+
+    setParticipantes(lista);
+    setGrupoActivo({
+      ...grupoActivo,
+      participantes_invitados: lista,
+    });
+    setCargandoExcel(false);
+    if (archivoRef.current) archivoRef.current.value = "";
+  }
+
   return (
     <div className="min-h-screen bg-navy-50 proyectada">
       <header className="bg-navy-700 text-white px-6 py-3 flex items-center justify-between">
@@ -160,7 +263,7 @@ export default function VistaProfesor({ usuario, onCerrar }: Props) {
           <img src={IPADE_LOGO_URL} alt="IPADE" className="h-9 w-9 object-contain" />
           <div>
             <h1 className="text-lg font-bold font-display">Panel del Profesor</h1>
-            <p className="text-navy-200 text-xs">Simuladores IPADE / Direccion de Operaciones</p>
+            <p className="text-navy-200 text-xs">Simuladores IPADE / Dirección de Operaciones</p>
           </div>
         </div>
         <div className="flex items-center gap-4">
@@ -206,13 +309,13 @@ export default function VistaProfesor({ usuario, onCerrar }: Props) {
                   value={nombreGrupo}
                   onChange={(e) => setNombreGrupo(e.target.value)}
                   className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-navy-500"
-                  placeholder="Ej: MEDEX X1, Sesion 3"
+                  placeholder="Ej: MEDEX X1, Sesión 3"
                   required
                 />
               </div>
               <div>
                 <label className="block text-xs font-medium text-neutral-600 mb-1">
-                  Semilla (numero)
+                  Semilla (número)
                 </label>
                 <input
                   type="number"
@@ -220,6 +323,29 @@ export default function VistaProfesor({ usuario, onCerrar }: Props) {
                   onChange={(e) => setSemilla(e.target.value)}
                   className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-sm font-dato transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-navy-500"
                   required
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-neutral-600 mb-1">
+                  Imagen de portada (URL)
+                </label>
+                <input
+                  type="url"
+                  value={imagenPortada}
+                  onChange={(e) => setImagenPortada(e.target.value)}
+                  className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-navy-500"
+                  placeholder="https://..."
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-neutral-600 mb-1">
+                  Descripción
+                </label>
+                <textarea
+                  value={descripcionGrupo}
+                  onChange={(e) => setDescripcionGrupo(e.target.value)}
+                  className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-navy-500 min-h-[60px]"
+                  placeholder="Contexto o instrucciones para el grupo"
                 />
               </div>
               <button
@@ -282,7 +408,7 @@ export default function VistaProfesor({ usuario, onCerrar }: Props) {
                       onClick={copiarCodigo}
                       className="px-3 py-1.5 bg-neutral-100 text-neutral-700 rounded-lg text-xs font-medium hover:bg-neutral-200 transition-all duration-200"
                     >
-                      {copiado ? "Copiado" : "Copiar codigo de grupo"}
+                      {copiado ? "Copiado" : "Copiar código de grupo"}
                     </button>
                     {!grupoActivo.dag_revelado && (
                       <button
@@ -306,7 +432,112 @@ export default function VistaProfesor({ usuario, onCerrar }: Props) {
               </div>
 
               <div className="bg-white rounded-2xl shadow-sm border border-neutral-200 p-5">
-                <h3 className="text-sm font-semibold text-navy-700 mb-3">Cronometro de sesion</h3>
+                <h3 className="text-sm font-semibold text-navy-700 mb-3">Configuración del grupo</h3>
+
+                {editImagen && (
+                  <div className="mb-3 rounded-xl overflow-hidden border border-neutral-200">
+                    <img
+                      src={editImagen}
+                      alt="Portada"
+                      className="w-full h-32 object-cover"
+                      onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                    />
+                  </div>
+                )}
+
+                <div className="space-y-3">
+                  <div>
+                    <label className="block text-xs font-medium text-neutral-600 mb-1">
+                      Imagen de portada (URL)
+                    </label>
+                    <input
+                      type="url"
+                      value={editImagen}
+                      onChange={(e) => setEditImagen(e.target.value)}
+                      className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-navy-500"
+                      placeholder="https://..."
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium text-neutral-600 mb-1">
+                      Descripción
+                    </label>
+                    <textarea
+                      value={editDescripcion}
+                      onChange={(e) => setEditDescripcion(e.target.value)}
+                      className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-navy-500 min-h-[60px]"
+                      placeholder="Contexto o instrucciones para el grupo"
+                    />
+                  </div>
+                  <button
+                    onClick={guardarConfiguracion}
+                    disabled={guardandoConfig}
+                    className="w-full bg-navy-700 text-white font-medium py-2 px-4 rounded-xl text-xs hover:bg-navy-800 transition-all duration-200 disabled:opacity-50"
+                  >
+                    {configGuardada ? "Guardado" : guardandoConfig ? "Guardando..." : "Guardar configuración"}
+                  </button>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-2xl shadow-sm border border-neutral-200 p-5">
+                <h3 className="text-sm font-semibold text-navy-700 mb-3">Participantes invitados</h3>
+
+                <div className="flex gap-2 mb-3">
+                  <button
+                    onClick={descargarPlantilla}
+                    className="flex-1 bg-neutral-100 text-neutral-700 font-medium py-2 px-3 rounded-xl text-xs hover:bg-neutral-200 transition-all duration-200"
+                  >
+                    Descargar plantilla Excel
+                  </button>
+                  <button
+                    onClick={() => archivoRef.current?.click()}
+                    disabled={cargandoExcel}
+                    className="flex-1 bg-gold-100 text-gold-800 font-medium py-2 px-3 rounded-xl text-xs hover:bg-gold-200 transition-all duration-200 disabled:opacity-50"
+                  >
+                    {cargandoExcel ? "Procesando..." : "Cargar lista (.xlsx)"}
+                  </button>
+                  <input
+                    ref={archivoRef}
+                    type="file"
+                    accept=".xlsx,.xls"
+                    onChange={procesarExcel}
+                    className="hidden"
+                  />
+                </div>
+
+                {participantes.length > 0 ? (
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-xs">
+                      <thead>
+                        <tr className="border-b border-neutral-200 text-left">
+                          <th className="pb-1.5 font-medium text-neutral-500">Nombre</th>
+                          <th className="pb-1.5 font-medium text-neutral-500">Email</th>
+                          <th className="pb-1.5 font-medium text-neutral-500">Equipo</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {participantes.map((p, i) => (
+                          <tr key={i} className="border-b border-neutral-100">
+                            <td className="py-1.5 text-neutral-700">{p.nombre}</td>
+                            <td className="py-1.5 text-neutral-500 font-dato">{p.email}</td>
+                            <td className="py-1.5 text-neutral-500">{p.equipo ?? "—"}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                    <p className="text-xs text-neutral-400 mt-2">
+                      {participantes.length} participante{participantes.length !== 1 ? "s" : ""}
+                    </p>
+                  </div>
+                ) : (
+                  <p className="text-xs text-neutral-400 text-center py-3">
+                    Sin participantes cargados
+                  </p>
+                )}
+              </div>
+
+              <div className="bg-white rounded-2xl shadow-sm border border-neutral-200 p-5">
+                <h3 className="text-sm font-semibold text-navy-700 mb-3">Cronómetro de sesión</h3>
                 <Cronometro
                   inicioMs={new Date(grupoActivo.creado_en).getTime()}
                   mostrarFases
@@ -319,7 +550,7 @@ export default function VistaProfesor({ usuario, onCerrar }: Props) {
                 </h3>
                 {equipos.length === 0 ? (
                   <p className="text-sm text-neutral-400 text-center py-6">
-                    Ningun equipo se ha unido todavia. Comparta el codigo de grupo.
+                    Ningún equipo se ha unido todavía. Comparta el código de grupo.
                   </p>
                 ) : (
                   <div className="overflow-x-auto">
@@ -327,9 +558,9 @@ export default function VistaProfesor({ usuario, onCerrar }: Props) {
                       <thead>
                         <tr className="border-b border-neutral-200 text-left">
                           <th className="pb-2 font-medium text-neutral-500">Equipo</th>
-                          <th className="pb-2 font-medium text-neutral-500 text-center">Creditos</th>
+                          <th className="pb-2 font-medium text-neutral-500 text-center">Créditos</th>
                           <th className="pb-2 font-medium text-neutral-500 text-center">Consultas</th>
-                          <th className="pb-2 font-medium text-neutral-500 text-center">Diagnostico</th>
+                          <th className="pb-2 font-medium text-neutral-500 text-center">Diagnóstico</th>
                         </tr>
                       </thead>
                       <tbody>
