@@ -267,7 +267,7 @@ export default function VistaEquipo() {
         </div>
         <div className="flex items-center gap-5">
           <div className="text-right">
-            <div className="text-2xl font-bold font-mono tabular-nums text-gold-400">
+            <div className="text-2xl font-medium font-dato tabular-nums text-gold-400">
               {equipo.creditos_restantes}
             </div>
             <div className="text-xs text-navy-200">creditos</div>
@@ -450,20 +450,20 @@ export default function VistaEquipo() {
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div className="bg-neutral-50 rounded p-3">
                   <div className="text-neutral-500 text-xs mb-1">Dias ciclo original (media)</div>
-                  <div className="text-xl font-bold font-mono text-neutral-700">
-                    {(resultadoInt.media_original as number)?.toFixed(1) ?? "—"}
+                  <div className="text-xl font-medium font-dato text-neutral-700">
+                    {(resultadoInt.media_original as number)?.toFixed(1) ?? "-"}
                   </div>
                 </div>
                 <div className="bg-navy-50 rounded p-3">
                   <div className="text-neutral-500 text-xs mb-1">Dias ciclo contrafactual (media)</div>
-                  <div className="text-xl font-bold font-mono text-navy-700">
-                    {(resultadoInt.media_contrafactual as number)?.toFixed(1) ?? "—"}
+                  <div className="text-xl font-medium font-dato text-navy-700">
+                    {(resultadoInt.media_contrafactual as number)?.toFixed(1) ?? "-"}
                   </div>
                 </div>
                 <div className="col-span-2 bg-gold-50 rounded p-3">
                   <div className="text-neutral-500 text-xs mb-1">Reduccion estimada</div>
-                  <div className="text-xl font-bold font-mono text-gold-800">
-                    {(resultadoInt.reduccion_porcentual as number)?.toFixed(1) ?? "—"}%
+                  <div className="text-xl font-medium font-dato text-gold-800">
+                    {(resultadoInt.reduccion_porcentual as number)?.toFixed(1) ?? "-"}%
                   </div>
                 </div>
               </div>
@@ -486,17 +486,17 @@ export default function VistaEquipo() {
             <dl className="text-sm space-y-2">
               <div className="flex justify-between">
                 <dt className="text-neutral-500">Total de casos</dt>
-                <dd className="font-mono font-medium">{casos.length}</dd>
+                <dd className="font-dato font-medium">{casos.length}</dd>
               </div>
               <div className="flex justify-between">
                 <dt className="text-neutral-500">Sucursales</dt>
-                <dd className="font-mono font-medium">
+                <dd className="font-dato font-medium">
                   {new Set(casos.map((c) => c.sucursal)).size}
                 </dd>
               </div>
               <div className="flex justify-between">
                 <dt className="text-neutral-500">Con error</dt>
-                <dd className="font-mono font-medium">
+                <dd className="font-dato font-medium">
                   {casos.filter((c) => c.tipo_error && c.tipo_error !== "ninguno").length}
                 </dd>
               </div>

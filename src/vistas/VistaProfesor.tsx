@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { invocarFuncion, supabase } from "../lib/supabase";
 import { IPADE_LOGO_URL } from "../lib/constantes";
-import Cronometro, { FASES } from "../componentes/Cronometro";
+import Cronometro from "../componentes/Cronometro";
+import PanelAdmin from "../componentes/PanelAdmin";
+import type { Usuario } from "../lib/auth";
 
 interface Grupo {
   id: string;
@@ -20,11 +22,12 @@ interface EquipoResumen {
   diagnostico: boolean;
 }
 
-export default function VistaProfesor() {
-  const [clave, setClave] = useState("");
-  const [autenticado, setAutenticado] = useState(false);
-  const [claveGuardada, setClaveGuardada] = useState("");
+interface Props {
+  usuario: Usuario;
+  onCerrar: () => void;
+}
 
+export default function VistaProfesor({ usuario, onCerrar }: Props) {
   const [grupos, setGrupos] = useState<Grupo[]>([]);
   const [grupoActivo, setGrupoActivo] = useState<Grupo | null>(null);
   const [equipos, setEquipos] = useState<EquipoResumen[]>([]);
@@ -35,15 +38,7 @@ export default function VistaProfesor() {
   const [error, setError] = useState<string | null>(null);
   const [copiado, setCopiado] = useState(false);
 
-  function autenticar(e: React.FormEvent) {
-    e.preventDefault();
-    if (!clave.trim()) return;
-    setClaveGuardada(clave.trim());
-    setAutenticado(true);
-  }
-
   useEffect(() => {
-    if (!autenticado) return;
     supabase
       .from("grupos")
       .select("*")
@@ -51,7 +46,7 @@ export default function VistaProfesor() {
       .then(({ data }) => {
         if (data) setGrupos(data as Grupo[]);
       });
-  }, [autenticado]);
+  }, []);
 
   useEffect(() => {
     if (!grupoActivo) return;
@@ -117,7 +112,7 @@ export default function VistaProfesor() {
         {
           nombre: nombreGrupo.trim(),
           semilla: Number(semilla),
-          clave_profesor: claveGuardada,
+          clave_profesor: usuario.email,
         },
       );
 
@@ -156,65 +151,33 @@ export default function VistaProfesor() {
     setTimeout(() => setCopiado(false), 2000);
   }
 
-  if (!autenticado) {
-    return (
-      <div className="min-h-screen bg-navy-50 flex items-center justify-center p-6">
-        <div className="w-full max-w-sm">
-          <div className="text-center mb-8">
-            <img
-              src={IPADE_LOGO_URL}
-              alt="IPADE Business School"
-              className="w-14 h-14 object-contain mx-auto mb-3"
-            />
-            <h1 className="text-2xl font-bold text-navy-700 font-display">Acceso de Profesor</h1>
-            <p className="text-neutral-500 text-sm mt-1">Simuladores IPADE</p>
-          </div>
-          <form onSubmit={autenticar} className="bg-white rounded-lg shadow-sm border border-neutral-200 p-8 space-y-4">
-            <div>
-              <label htmlFor="clave" className="block text-sm font-medium text-neutral-700 mb-1">
-                Clave de profesor
-              </label>
-              <input
-                id="clave"
-                type="password"
-                value={clave}
-                onChange={(e) => setClave(e.target.value)}
-                className="w-full rounded border border-neutral-300 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-navy-500"
-                placeholder="Ingrese su clave"
-                required
-              />
-            </div>
-            <button
-              type="submit"
-              className="w-full bg-navy-700 text-white font-medium py-2.5 px-4 rounded text-sm hover:bg-navy-800 transition-colors"
-            >
-              Entrar
-            </button>
-          </form>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="min-h-screen bg-navy-50">
+    <div className="min-h-screen bg-navy-50 proyectada">
       <header className="bg-navy-700 text-white px-6 py-3 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <img src={IPADE_LOGO_URL} alt="IPADE" className="h-9 w-9 object-contain" />
           <div>
             <h1 className="text-lg font-bold font-display">Panel del Profesor</h1>
-            <p className="text-navy-200 text-xs">Simuladores IPADE — Direccion de Operaciones</p>
+            <p className="text-navy-200 text-xs">Simuladores IPADE / Direccion de Operaciones</p>
           </div>
         </div>
-        {grupoActivo && (
-          <Cronometro
-            inicioMs={new Date(grupoActivo.creado_en).getTime()}
-          />
-        )}
+        <div className="flex items-center gap-4">
+          {grupoActivo && (
+            <Cronometro
+              inicioMs={new Date(grupoActivo.creado_en).getTime()}
+            />
+          )}
+          <span className="text-xs text-navy-200">{usuario.email}</span>
+          <button
+            onClick={onCerrar}
+            className="text-xs text-navy-200 hover:text-white underline"
+          >
+            Salir
+          </button>
+        </div>
       </header>
 
       <div className="max-w-7xl mx-auto px-6 py-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Columna izquierda: crear y listar grupos */}
         <div className="space-y-6">
           <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-5">
             <h2 className="text-sm font-semibold text-navy-700 mb-4">Crear nuevo grupo</h2>
@@ -235,7 +198,7 @@ export default function VistaProfesor() {
                   value={nombreGrupo}
                   onChange={(e) => setNombreGrupo(e.target.value)}
                   className="w-full rounded border border-neutral-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-navy-500"
-                  placeholder="Ej: MEDEX X1 — Sesion 3"
+                  placeholder="Ej: MEDEX X1, Sesion 3"
                   required
                 />
               </div>
@@ -247,7 +210,7 @@ export default function VistaProfesor() {
                   type="number"
                   value={semilla}
                   onChange={(e) => setSemilla(e.target.value)}
-                  className="w-full rounded border border-neutral-300 px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-navy-500"
+                  className="w-full rounded border border-neutral-300 px-3 py-2 text-sm font-dato focus:outline-none focus:ring-2 focus:ring-navy-500"
                   required
                 />
               </div>
@@ -287,9 +250,12 @@ export default function VistaProfesor() {
               </div>
             )}
           </div>
+
+          {usuario.rol === "superadmin" && (
+            <PanelAdmin usuario={usuario} />
+          )}
         </div>
 
-        {/* Columna central y derecha: detalle del grupo activo */}
         <div className="lg:col-span-2 space-y-6">
           {!grupoActivo ? (
             <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-12 text-center">
@@ -326,12 +292,11 @@ export default function VistaProfesor() {
                   </div>
                 </div>
 
-                <div className="bg-neutral-50 rounded p-3 font-mono text-xs text-neutral-600 select-all">
+                <div className="bg-neutral-50 rounded p-3 font-dato text-xs text-neutral-600 select-all">
                   {grupoActivo.id}
                 </div>
               </div>
 
-              {/* Cronometro con fases */}
               <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-5">
                 <h3 className="text-sm font-semibold text-navy-700 mb-3">Cronometro de sesion</h3>
                 <Cronometro
@@ -340,7 +305,6 @@ export default function VistaProfesor() {
                 />
               </div>
 
-              {/* Dashboard de equipos */}
               <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-5">
                 <h3 className="text-sm font-semibold text-navy-700 mb-4">
                   Equipos ({equipos.length})
@@ -366,7 +330,7 @@ export default function VistaProfesor() {
                             <td className="py-2.5 font-medium text-neutral-700">{eq.nombre}</td>
                             <td className="py-2.5 text-center">
                               <span
-                                className={`font-mono font-bold ${
+                                className={`font-dato font-medium ${
                                   eq.creditos_restantes <= 3
                                     ? "text-red-600"
                                     : eq.creditos_restantes <= 6
@@ -377,7 +341,7 @@ export default function VistaProfesor() {
                                 {eq.creditos_restantes}
                               </span>
                             </td>
-                            <td className="py-2.5 text-center font-mono">{eq.consultas}</td>
+                            <td className="py-2.5 text-center font-dato">{eq.consultas}</td>
                             <td className="py-2.5 text-center">
                               {eq.diagnostico ? (
                                 <span className="inline-block w-5 h-5 rounded-full bg-green-100 text-green-700 text-xs leading-5 font-bold">
@@ -385,7 +349,7 @@ export default function VistaProfesor() {
                                 </span>
                               ) : (
                                 <span className="inline-block w-5 h-5 rounded-full bg-neutral-100 text-neutral-400 text-xs leading-5">
-                                  —
+                                  -
                                 </span>
                               )}
                             </td>

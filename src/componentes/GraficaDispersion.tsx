@@ -28,7 +28,7 @@ export default function GraficaDispersion({ datos }: Props) {
           {datos.etiquetaX} vs {datos.etiquetaY}
         </h4>
         <div className="text-right">
-          <span className={`font-mono text-lg font-bold ${colorR}`}>
+          <span className={`font-dato text-lg font-medium ${colorR}`}>
             r = {datos.r.toFixed(3)}
           </span>
           <span className="text-xs text-neutral-500 ml-2">n = {datos.n}</span>
@@ -42,24 +42,24 @@ export default function GraficaDispersion({ datos }: Props) {
               dataKey="x"
               type="number"
               name={datos.etiquetaX}
-              tick={{ fontSize: 11, fill: "#4D5561" }}
+              tick={{ fontSize: 13, fill: "#4D5561", fontFamily: "Inter Variable, system-ui, sans-serif", fontWeight: 500 }}
               label={{
                 value: datos.etiquetaX,
                 position: "insideBottom",
                 offset: -2,
-                style: { fontSize: 11, fill: "#4D5561" },
+                style: { fontSize: 13, fill: "#4D5561", fontFamily: "Inter Variable, system-ui, sans-serif", fontWeight: 500 },
               }}
             />
             <YAxis
               dataKey="y"
               type="number"
               name={datos.etiquetaY}
-              tick={{ fontSize: 11, fill: "#4D5561" }}
+              tick={{ fontSize: 13, fill: "#4D5561", fontFamily: "Inter Variable, system-ui, sans-serif", fontWeight: 500 }}
               label={{
                 value: datos.etiquetaY,
                 angle: -90,
                 position: "insideLeft",
-                style: { fontSize: 11, fill: "#4D5561" },
+                style: { fontSize: 13, fill: "#4D5561", fontFamily: "Inter Variable, system-ui, sans-serif", fontWeight: 500 },
               }}
             />
             <Tooltip

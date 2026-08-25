@@ -31,30 +31,30 @@ export default function GraficaPareto({ datos, titulo }: Props) {
               dataKey="nombre"
               angle={-45}
               textAnchor="end"
-              tick={{ fontSize: 11, fill: "#4D5561" }}
+              tick={{ fontSize: 13, fill: "#4D5561", fontFamily: "Inter Variable, system-ui, sans-serif", fontWeight: 500 }}
               interval={0}
               height={80}
             />
             <YAxis
               yAxisId="freq"
-              tick={{ fontSize: 11, fill: "#4D5561" }}
+              tick={{ fontSize: 13, fill: "#4D5561", fontFamily: "Inter Variable, system-ui, sans-serif", fontWeight: 500 }}
               label={{
                 value: "Frecuencia",
                 angle: -90,
                 position: "insideLeft",
-                style: { fontSize: 11, fill: "#4D5561" },
+                style: { fontSize: 13, fill: "#4D5561", fontFamily: "Inter Variable, system-ui, sans-serif", fontWeight: 500 },
               }}
             />
             <YAxis
               yAxisId="pct"
               orientation="right"
               domain={[0, 100]}
-              tick={{ fontSize: 11, fill: "#4D5561" }}
+              tick={{ fontSize: 13, fill: "#4D5561", fontFamily: "Inter Variable, system-ui, sans-serif", fontWeight: 500 }}
               label={{
                 value: "% acumulado",
                 angle: 90,
                 position: "insideRight",
-                style: { fontSize: 11, fill: "#4D5561" },
+                style: { fontSize: 13, fill: "#4D5561", fontFamily: "Inter Variable, system-ui, sans-serif", fontWeight: 500 },
               }}
             />
             <Tooltip

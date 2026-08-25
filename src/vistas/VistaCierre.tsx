@@ -125,7 +125,7 @@ export default function VistaCierre() {
           <div className="flex items-center gap-3">
             <img src={IPADE_LOGO_URL} alt="IPADE" className="h-9 w-9 object-contain" />
             <div>
-              <h1 className="text-lg font-bold font-display">Consejo de Administracion — ETF Bank</h1>
+              <h1 className="text-lg font-bold font-display">Consejo de Administracion / ETF Bank</h1>
               <p className="text-navy-200 text-xs">{equipoNombre}</p>
             </div>
           </div>
@@ -356,8 +356,9 @@ function DAGDiagrama({ nodos, aristas }: { nodos: NodoDAG[]; aristas: AristaDAG[
                 y={pos.y + 22}
                 textAnchor="middle"
                 fill="white"
-                fontSize={10}
-                fontWeight={600}
+                fontSize={14}
+                fontWeight={500}
+                fontFamily="Inter Variable, system-ui, sans-serif"
               >
                 {n.etiqueta}
               </text>
