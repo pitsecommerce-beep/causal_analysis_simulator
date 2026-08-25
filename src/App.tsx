@@ -141,14 +141,14 @@ export default function App({ usuario, onCerrar }: AppProps) {
               {esDocente && (
                 <button
                   onClick={() => navigate("/profesor")}
-                  className="px-4 py-2 bg-navy-600 hover:bg-navy-500 rounded text-white transition-colors"
+                  className="px-4 py-2 bg-navy-600 hover:bg-navy-500 rounded-xl text-white transition-all duration-200"
                 >
                   Panel de profesor
                 </button>
               )}
               <button
                 onClick={onCerrar}
-                className="px-4 py-2 bg-navy-800 hover:bg-navy-900 rounded text-navy-200 hover:text-white transition-colors"
+                className="px-4 py-2 bg-navy-800 hover:bg-navy-900 rounded-xl text-navy-200 hover:text-white transition-all duration-200"
               >
                 Salir
               </button>
@@ -193,16 +193,16 @@ function SimuladorCard({
     <button
       onClick={onClick}
       disabled={!activo}
-      className={`text-left rounded-lg border transition-all w-full ${
+      className={`text-left rounded-2xl border transition-all duration-200 w-full ${
         activo
-          ? "bg-white border-neutral-200 shadow-sm hover:shadow-md hover:border-navy-300 cursor-pointer"
+          ? "bg-white border-neutral-200 shadow-sm hover:shadow-md hover:border-navy-300 hover:-translate-y-0.5 cursor-pointer"
           : "bg-white/60 border-neutral-200/70 opacity-75 cursor-default"
       }`}
     >
       <div className="p-5">
         <div className="flex items-start gap-3 mb-3">
           <span
-            className={`w-10 h-10 rounded-lg flex items-center justify-center text-xs font-bold shrink-0 ${ICONOS_BG[color]}`}
+            className={`w-10 h-10 rounded-xl flex items-center justify-center text-xs font-bold shrink-0 ${ICONOS_BG[color]}`}
           >
             {icono}
           </span>
@@ -224,7 +224,7 @@ function SimuladorCard({
         </div>
       </div>
       {activo && (
-        <div className="border-t border-neutral-100 px-5 py-3">
+        <div className="border-t border-neutral-100 px-5 py-3 rounded-b-2xl">
           <span className="text-sm font-medium text-navy-600">
             Iniciar simulador &rarr;
           </span>

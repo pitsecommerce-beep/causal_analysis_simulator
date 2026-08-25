@@ -36,9 +36,9 @@ export default function PantallaLogin({ onLogin, cargando, error }: Props) {
           </p>
         </div>
 
-        <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-8">
+        <div className="bg-white rounded-2xl shadow-sm border border-neutral-200 p-8">
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded p-3 mb-4">
+            <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl p-3 mb-4">
               {error}
             </div>
           )}
@@ -56,7 +56,7 @@ export default function PantallaLogin({ onLogin, cargando, error }: Props) {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className={`w-full rounded border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-navy-500 ${
+                className={`w-full rounded-xl border px-3 py-2.5 text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-navy-500 ${
                   emailValido
                     ? "border-neutral-300"
                     : "border-red-300 focus:ring-red-500"
@@ -74,20 +74,11 @@ export default function PantallaLogin({ onLogin, cargando, error }: Props) {
             <button
               type="submit"
               disabled={cargando || !esEmailValido(email)}
-              className="w-full bg-navy-700 text-white font-medium py-2.5 px-4 rounded text-sm hover:bg-navy-800 transition-colors disabled:opacity-50"
+              className="w-full bg-navy-700 text-white font-medium py-2.5 px-4 rounded-xl text-sm hover:bg-navy-800 transition-all duration-200 disabled:opacity-50"
             >
               {cargando ? "Ingresando..." : "Ingresar"}
             </button>
           </form>
-
-          <div className="mt-5 pt-4 border-t border-neutral-100">
-            <p className="text-xs text-neutral-400 text-center">
-              Participantes: @alumni.ipade.mx
-            </p>
-            <p className="text-xs text-neutral-400 text-center mt-1">
-              Docentes: @ipade.mx (requiere aprobacion)
-            </p>
-          </div>
         </div>
       </div>
     </div>

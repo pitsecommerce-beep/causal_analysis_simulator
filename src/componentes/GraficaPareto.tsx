@@ -18,7 +18,7 @@ interface Props {
 
 export default function GraficaPareto({ datos, titulo }: Props) {
   return (
-    <div className="bg-white border border-neutral-200 rounded-lg p-5">
+    <div className="bg-white border border-neutral-200 rounded-2xl p-5">
       <h4 className="text-sm font-semibold text-navy-700 mb-4">{titulo}</h4>
       <div className="h-72">
         <ResponsiveContainer width="100%" height="100%">

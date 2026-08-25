@@ -240,7 +240,7 @@ export default function VistaEquipo() {
   if (error && !equipo) {
     return (
       <div className="min-h-screen bg-navy-50 flex items-center justify-center p-6">
-        <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-8 max-w-md text-center">
+        <div className="bg-white rounded-2xl shadow-sm border border-neutral-200 p-8 max-w-md text-center">
           <p className="text-red-600 mb-4">{error}</p>
           <button onClick={() => navigate("/")} className="text-sm text-navy-600 underline">
             Volver al inicio
@@ -279,11 +279,11 @@ export default function VistaEquipo() {
       <div className="max-w-7xl mx-auto px-6 py-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Panel de consultas */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-6">
+          <div className="bg-white rounded-2xl shadow-sm border border-neutral-200 p-6">
             <h2 className="text-lg font-semibold text-navy-700 mb-4">Nueva consulta</h2>
 
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded p-3 mb-4">
+              <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl p-3 mb-4">
                 {error}
                 <button onClick={() => setError(null)} className="ml-2 underline">Cerrar</button>
               </div>
@@ -304,7 +304,7 @@ export default function VistaEquipo() {
                       key={t.valor}
                       type="button"
                       onClick={() => setTipoConsulta(t.valor)}
-                      className={`flex-1 py-2 px-3 rounded text-sm font-medium transition-colors ${
+                      className={`flex-1 py-2 px-3 rounded-xl text-sm font-medium transition-all duration-200 ${
                         tipoConsulta === t.valor
                           ? "bg-navy-700 text-white"
                           : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
@@ -326,7 +326,7 @@ export default function VistaEquipo() {
                   type="text"
                   value={hipotesis}
                   onChange={(e) => setHipotesis(e.target.value)}
-                  className="w-full rounded border border-neutral-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-navy-500 focus:border-transparent"
+                  className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-navy-500 focus:border-transparent"
                   placeholder="Escriba su hipotesis antes de ejecutar la consulta"
                   required
                 />
@@ -343,7 +343,7 @@ export default function VistaEquipo() {
                   <select
                     value={campoSeg}
                     onChange={(e) => setCampoSeg(e.target.value as CampoCategoria)}
-                    className="w-full rounded border border-neutral-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-navy-500"
+                    className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-navy-500"
                   >
                     {CAMPOS_CATEGORIA.map((c) => (
                       <option key={c.valor} value={c.valor}>{c.etiqueta}</option>
@@ -361,7 +361,7 @@ export default function VistaEquipo() {
                     <select
                       value={campoX}
                       onChange={(e) => setCampoX(e.target.value as CampoNumerico)}
-                      className="w-full rounded border border-neutral-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-navy-500"
+                      className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-navy-500"
                     >
                       {CAMPOS_NUMERICOS.map((c) => (
                         <option key={c.valor} value={c.valor}>{c.etiqueta}</option>
@@ -375,7 +375,7 @@ export default function VistaEquipo() {
                     <select
                       value={campoY}
                       onChange={(e) => setCampoY(e.target.value as CampoNumerico)}
-                      className="w-full rounded border border-neutral-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-navy-500"
+                      className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-navy-500"
                     >
                       {CAMPOS_NUMERICOS.map((c) => (
                         <option key={c.valor} value={c.valor}>{c.etiqueta}</option>
@@ -394,7 +394,7 @@ export default function VistaEquipo() {
                     <select
                       value={nodoInt}
                       onChange={(e) => setNodoInt(e.target.value)}
-                      className="w-full rounded border border-neutral-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-navy-500"
+                      className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-navy-500"
                     >
                       {NODOS_INTERVENCION.map((n) => (
                         <option key={n.valor} value={n.valor}>{n.etiqueta}</option>
@@ -409,7 +409,7 @@ export default function VistaEquipo() {
                       type="number"
                       value={valorInt}
                       onChange={(e) => setValorInt(e.target.value)}
-                      className="w-full rounded border border-neutral-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-navy-500"
+                      className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-navy-500"
                       placeholder="Ej: 0 para eliminar errores"
                       step="any"
                       required
@@ -421,7 +421,7 @@ export default function VistaEquipo() {
               <button
                 type="submit"
                 disabled={ejecutando || sinCreditos}
-                className="w-full bg-navy-700 text-white font-medium py-2.5 px-4 rounded text-sm hover:bg-navy-800 transition-colors focus:outline-none focus:ring-2 focus:ring-navy-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-navy-700 text-white font-medium py-2.5 px-4 rounded-xl text-sm hover:bg-navy-800 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-navy-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {ejecutando
                   ? "Ejecutando..."
@@ -443,24 +443,24 @@ export default function VistaEquipo() {
           {resultadoCorr && <GraficaDispersion datos={resultadoCorr} />}
 
           {resultadoInt && (
-            <div className="bg-white border border-neutral-200 rounded-lg p-5">
+            <div className="bg-white border border-neutral-200 rounded-2xl p-5">
               <h4 className="text-sm font-semibold text-navy-700 mb-3">
                 Resultado de intervencion
               </h4>
               <div className="grid grid-cols-2 gap-4 text-sm">
-                <div className="bg-neutral-50 rounded p-3">
+                <div className="bg-neutral-50 rounded-xl p-3">
                   <div className="text-neutral-500 text-xs mb-1">Dias ciclo original (media)</div>
                   <div className="text-xl font-medium font-dato text-neutral-700">
                     {(resultadoInt.media_original as number)?.toFixed(1) ?? "-"}
                   </div>
                 </div>
-                <div className="bg-navy-50 rounded p-3">
+                <div className="bg-navy-50 rounded-xl p-3">
                   <div className="text-neutral-500 text-xs mb-1">Dias ciclo contrafactual (media)</div>
                   <div className="text-xl font-medium font-dato text-navy-700">
                     {(resultadoInt.media_contrafactual as number)?.toFixed(1) ?? "-"}
                   </div>
                 </div>
-                <div className="col-span-2 bg-gold-50 rounded p-3">
+                <div className="col-span-2 bg-gold-50 rounded-xl p-3">
                   <div className="text-neutral-500 text-xs mb-1">Reduccion estimada</div>
                   <div className="text-xl font-medium font-dato text-gold-800">
                     {(resultadoInt.reduccion_porcentual as number)?.toFixed(1) ?? "-"}%
@@ -473,7 +473,7 @@ export default function VistaEquipo() {
 
         {/* Sidebar: bitacora */}
         <div className="space-y-6">
-          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-5">
+          <div className="bg-white rounded-2xl shadow-sm border border-neutral-200 p-5">
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-sm font-semibold text-navy-700">Bitacora de consultas</h3>
               <span className="text-xs text-neutral-500">{consultas.length} consultas</span>
@@ -481,7 +481,7 @@ export default function VistaEquipo() {
             <Bitacora consultas={consultas} />
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-5">
+          <div className="bg-white rounded-2xl shadow-sm border border-neutral-200 p-5">
             <h3 className="text-sm font-semibold text-navy-700 mb-3">Resumen de datos</h3>
             <dl className="text-sm space-y-2">
               <div className="flex justify-between">
@@ -505,7 +505,7 @@ export default function VistaEquipo() {
 
           <button
             onClick={() => navigate(`/cierre/${equipo.id}`)}
-            className="w-full bg-gold-600 text-white font-medium py-2.5 px-4 rounded text-sm hover:bg-gold-700 transition-colors"
+            className="w-full bg-gold-600 text-white font-medium py-2.5 px-4 rounded-xl text-sm hover:bg-gold-700 transition-all duration-200"
           >
             Presentar diagnostico al consejo
           </button>

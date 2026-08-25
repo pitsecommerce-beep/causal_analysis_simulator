@@ -22,7 +22,7 @@ export default function GraficaDispersion({ datos }: Props) {
         : "text-neutral-500";
 
   return (
-    <div className="bg-white border border-neutral-200 rounded-lg p-5">
+    <div className="bg-white border border-neutral-200 rounded-2xl p-5">
       <div className="flex items-baseline justify-between mb-4">
         <h4 className="text-sm font-semibold text-navy-700">
           {datos.etiquetaX} vs {datos.etiquetaY}
