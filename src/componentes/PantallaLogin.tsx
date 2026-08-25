@@ -32,7 +32,7 @@ export default function PantallaLogin({ onLogin, cargando, error }: Props) {
             Simuladores IPADE
           </h1>
           <p className="text-neutral-500 text-sm mt-1">
-            Inicie sesion con su correo institucional
+            Ingrese con su correo institucional
           </p>
         </div>
 

@@ -45,20 +45,20 @@ export const CAMPOS_CATEGORIA: { valor: CampoCategoria; etiqueta: string }[] = [
   { valor: "estado", etiqueta: "Estado" },
   { valor: "volumen_sucursal", etiqueta: "Volumen de sucursal" },
   { valor: "estado_civil", etiqueta: "Estado civil" },
-  { valor: "genero", etiqueta: "Genero" },
-  { valor: "resultado_buro", etiqueta: "Resultado de buro" },
+  { valor: "genero", etiqueta: "Género" },
+  { valor: "resultado_buro", etiqueta: "Resultado de buró" },
   { valor: "tipo_error", etiqueta: "Tipo de error" },
-  { valor: "ultimo_status", etiqueta: "Ultimo status" },
+  { valor: "ultimo_status", etiqueta: "Último status" },
 ];
 
 export const CAMPOS_NUMERICOS: { valor: CampoNumerico; etiqueta: string }[] = [
   { valor: "edad_cliente", etiqueta: "Edad del cliente" },
-  { valor: "anios_cliente", etiqueta: "Anios como cliente" },
-  { valor: "score_buro", etiqueta: "Score de buro" },
-  { valor: "monto_linea", etiqueta: "Monto de linea" },
+  { valor: "anios_cliente", etiqueta: "Años como cliente" },
+  { valor: "score_buro", etiqueta: "Score de buró" },
+  { valor: "monto_linea", etiqueta: "Monto de línea" },
   { valor: "reintentos", etiqueta: "Reintentos" },
   { valor: "espera_crop", etiqueta: "Espera CROP" },
-  { valor: "dias_ciclo", etiqueta: "Dias de ciclo" },
+  { valor: "dias_ciclo", etiqueta: "Días de ciclo" },
 ];
 
 export interface ResultadoPareto {

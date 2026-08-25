@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 
 const NUMEROS_EJEMPLO = [
-  { etiqueta: "Creditos", valores: [12, 9, 6, 3, 0] },
-  { etiqueta: "Dias ciclo", valores: [14.2, 8.7, 22.1, 5.3, 31.0] },
-  { etiqueta: "Correlacion r", valores: [0.872, -0.341, 0.156, 0.923, -0.687] },
+  { etiqueta: "Créditos", valores: [12, 9, 6, 3, 0] },
+  { etiqueta: "Días ciclo", valores: [14.2, 8.7, 22.1, 5.3, 31.0] },
+  { etiqueta: "Correlación r", valores: [0.872, -0.341, 0.156, 0.923, -0.687] },
   { etiqueta: "Porcentaje", valores: [87.3, 42.1, 15.6, 92.3, 68.7] },
 ];
 
@@ -23,16 +23,16 @@ export default function VistaTipografia() {
       <div className="max-w-4xl mx-auto space-y-10">
         <header>
           <h1 className="font-titulo text-4xl font-semibold text-navy-700 tracking-tight">
-            Escala tipografica
+            Escala tipográfica
           </h1>
           <p className="font-texto text-sm text-neutral-500 mt-1">
-            Vista de verificacion (solo desarrollo)
+            Vista de verificación (solo desarrollo)
           </p>
         </header>
 
         <section className="bg-white rounded-lg border border-neutral-200 p-6 space-y-6">
           <h2 className="font-titulo text-2xl font-semibold text-navy-700">
-            Familias tipograficas
+            Familias tipográficas
           </h2>
 
           <div className="space-y-4">
@@ -41,13 +41,13 @@ export default function VistaTipografia() {
                 TITULO (Source Serif 4)
               </p>
               <p className="font-titulo text-4xl font-semibold text-navy-700" style={{ letterSpacing: "-0.02em" }}>
-                Simulador de Analisis Causal
+                Simulador de Análisis Causal
               </p>
               <p className="font-titulo text-2xl font-semibold text-navy-700 mt-2">
-                Direccion de Operaciones
+                Dirección de Operaciones
               </p>
               <p className="font-titulo text-lg font-semibold text-navy-700 mt-2">
-                Acentos: direccion, informacion, resolucion, comunicacion, muneca, nino, Espana
+                Acentos: dirección, información, resolución, comunicación, muñeca, niño, España
               </p>
             </div>
 
@@ -58,15 +58,15 @@ export default function VistaTipografia() {
                 TEXTO (Inter)
               </p>
               <p className="font-texto text-lg font-medium text-neutral-600 mt-2">
-                Subtitulo de seccion con peso medio
+                Subtítulo de sección con peso medio
               </p>
               <p className="font-texto text-base text-neutral-700 mt-2">
-                Cuerpo de texto regular. Los equipos deben identificar la causa raiz de los
-                retrasos en el proceso de solicitud de tarjetas de credito del banco ETF.
-                Distinguir correlacion de causalidad es fundamental.
+                Cuerpo de texto regular. Los equipos deben identificar la causa raíz de los
+                retrasos en el proceso de solicitud de tarjetas de crédito del banco ETF.
+                Distinguir correlación de causalidad es fundamental.
               </p>
               <p className="font-texto text-sm font-medium text-neutral-500 uppercase mt-2" style={{ letterSpacing: "0.06em" }}>
-                ETIQUETA EN MAYUSCULAS
+                ETIQUETA EN MAYÚSCULAS
               </p>
             </div>
 
@@ -94,14 +94,14 @@ export default function VistaTipografia() {
             Cifras tabulares (cambio en vivo)
           </h2>
           <p className="font-texto text-sm text-neutral-500 mb-4">
-            Los numeros deben mantenerse alineados sin saltar de ancho al cambiar valores.
+            Los números deben mantenerse alineados sin saltar de ancho al cambiar valores.
           </p>
 
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-neutral-200">
-                  <th className="text-left pb-2 font-texto font-medium text-neutral-500">Metrica</th>
+                  <th className="text-left pb-2 font-texto font-medium text-neutral-500">Métrica</th>
                   {[1, 2, 3, 4, 5].map((i) => (
                     <th key={i} className="text-right pb-2 font-texto font-medium text-neutral-500 w-24">
                       Col {i}
@@ -123,7 +123,7 @@ export default function VistaTipografia() {
                   </tr>
                 ))}
                 <tr className="border-b border-neutral-100">
-                  <td className="py-2 font-texto text-neutral-700">Cronometro</td>
+                  <td className="py-2 font-texto text-neutral-700">Cronómetro</td>
                   <td colSpan={5} className="py-2 text-right font-dato text-2xl font-medium text-navy-700">
                     {String(mins).padStart(2, "0")}:{String(segs).padStart(2, "0")} / 70:00
                   </td>
@@ -141,13 +141,13 @@ export default function VistaTipografia() {
             <div>
               <span className="font-texto text-xs text-neutral-400">display / titulo 36px 600</span>
               <p className="font-titulo text-4xl font-semibold text-navy-700" style={{ lineHeight: "42px", letterSpacing: "-0.02em" }}>
-                Analisis Causal
+                Análisis Causal
               </p>
             </div>
             <div>
               <span className="font-texto text-xs text-neutral-400">titulo-seccion / titulo 26px 600</span>
               <p className="font-titulo text-2xl font-semibold text-navy-700" style={{ lineHeight: "32px" }}>
-                Consejo de Administracion
+                Consejo de Administración
               </p>
             </div>
             <div>
@@ -159,13 +159,13 @@ export default function VistaTipografia() {
             <div>
               <span className="font-texto text-xs text-neutral-400">cuerpo / texto 16px 400</span>
               <p className="font-texto text-base text-neutral-700" style={{ lineHeight: "24px" }}>
-                Identifiquen la causa raiz de los retrasos en el proceso.
+                Identifiquen la causa raíz de los retrasos en el proceso.
               </p>
             </div>
             <div>
-              <span className="font-texto text-xs text-neutral-400">etiqueta / texto 13px 500 mayusculas</span>
+              <span className="font-texto text-xs text-neutral-400">etiqueta / texto 13px 500 mayúsculas</span>
               <p className="font-texto text-xs font-medium text-neutral-500 uppercase" style={{ fontSize: "13px", lineHeight: "18px", letterSpacing: "0.06em" }}>
-                CREDITOS RESTANTES
+                CRÉDITOS RESTANTES
               </p>
             </div>
             <div>

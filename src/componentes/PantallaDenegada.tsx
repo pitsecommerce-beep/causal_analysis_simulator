@@ -36,15 +36,15 @@ export default function PantallaDenegada({ email, onCerrar }: Props) {
             Acceso denegado
           </h2>
           <p className="text-sm text-neutral-500 mb-6">
-            La solicitud para <span className="font-medium text-neutral-700">{email}</span> fue
-            denegada. Contacte al administrador si cree que es un error.
+            <span className="font-medium text-neutral-700">{email}</span> fue
+            denegada. Contacte al administrador.
           </p>
 
           <button
             onClick={onCerrar}
             className="text-sm text-navy-600 hover:text-navy-800 underline transition-colors duration-200"
           >
-            Cerrar sesion
+            Cerrar sesión
           </button>
         </div>
       </div>

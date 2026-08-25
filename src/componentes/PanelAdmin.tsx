@@ -54,7 +54,7 @@ export default function PanelAdmin({ usuario }: Props) {
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-neutral-200 p-5">
       <h2 className="text-sm font-semibold text-navy-700 mb-4">
-        Administracion de usuarios
+        Administración de usuarios
       </h2>
 
       <div className="flex gap-2 mb-4">

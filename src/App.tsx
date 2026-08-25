@@ -19,11 +19,11 @@ interface Simulador {
 const SIMULADORES: Simulador[] = [
   {
     id: "analisis-causal",
-    nombre: "Analisis Causal",
-    subtitulo: "ETF Bank / Tarjetas de credito",
+    nombre: "Análisis Causal",
+    subtitulo: "ETF Bank / Tarjetas de crédito",
     descripcion:
-      "Identifiquen la causa raiz de los retrasos en el proceso de solicitud de tarjetas. Distingan correlacion de causalidad usando segmentacion, correlaciones e intervenciones contrafactuales.",
-    area: "Direccion de Operaciones",
+      "Identifiquen la causa raíz de los retrasos en solicitudes de tarjetas. Distingan correlación de causalidad mediante segmentación e intervenciones contrafactuales.",
+    area: "Dirección de Operaciones",
     duracion: "70 min",
     icono: "DAG",
     ruta: "/analisis-causal",
@@ -33,10 +33,10 @@ const SIMULADORES: Simulador[] = [
   {
     id: "cadena-suministro",
     nombre: "Cadena de Suministro",
-    subtitulo: "Optimizacion de red logistica",
+    subtitulo: "Optimización de red logística",
     descripcion:
-      "Disenen la red de distribucion optima equilibrando costos de transporte, niveles de inventario y nivel de servicio bajo incertidumbre de demanda.",
-    area: "Direccion de Operaciones",
+      "Diseñen la red de distribución óptima equilibrando costos de transporte, inventario y nivel de servicio bajo incertidumbre de demanda.",
+    area: "Dirección de Operaciones",
     duracion: "90 min",
     icono: "SCM",
     ruta: "/cadena-suministro",
@@ -45,11 +45,11 @@ const SIMULADORES: Simulador[] = [
   },
   {
     id: "control-calidad",
-    nombre: "Control Estadistico",
-    subtitulo: "Graficas de control y capacidad",
+    nombre: "Control Estadístico",
+    subtitulo: "Gráficas de control y capacidad",
     descripcion:
-      "Monitoreen un proceso productivo en tiempo real. Identifiquen causas especiales de variacion y decidan cuando intervenir usando graficas X-barra, R y capacidad de proceso.",
-    area: "Direccion de Operaciones",
+      "Monitoreen un proceso en tiempo real. Identifiquen causas especiales de variación y decidan cuándo intervenir con gráficas X-barra, R y capacidad.",
+    area: "Dirección de Operaciones",
     duracion: "60 min",
     icono: "SPC",
     ruta: "/control-calidad",
@@ -58,11 +58,11 @@ const SIMULADORES: Simulador[] = [
   },
   {
     id: "teoria-colas",
-    nombre: "Teoria de Colas",
-    subtitulo: "Diseno de capacidad de servicio",
+    nombre: "Teoría de Colas",
+    subtitulo: "Diseño de capacidad de servicio",
     descripcion:
-      "Determinen la configuracion optima de servidores para minimizar el costo total (espera + capacidad) en un sistema de atencion con llegadas estocasticas.",
-    area: "Direccion de Operaciones",
+      "Determinen la configuración óptima de servidores para minimizar el costo total en un sistema de atención con llegadas estocásticas.",
+    area: "Dirección de Operaciones",
     duracion: "50 min",
     icono: "Q",
     ruta: "/teoria-colas",
@@ -71,11 +71,11 @@ const SIMULADORES: Simulador[] = [
   },
   {
     id: "inventarios",
-    nombre: "Gestion de Inventarios",
-    subtitulo: "Politicas EOQ y punto de reorden",
+    nombre: "Gestión de Inventarios",
+    subtitulo: "Políticas EOQ y punto de reorden",
     descripcion:
-      "Experimenten con diferentes politicas de inventario bajo demanda incierta. Evaluen el impacto de lotes, lead times y niveles de seguridad en costos y disponibilidad.",
-    area: "Direccion de Operaciones",
+      "Experimenten con políticas de inventario bajo demanda incierta. Evalúen el impacto de lotes, lead times y niveles de seguridad.",
+    area: "Dirección de Operaciones",
     duracion: "60 min",
     icono: "INV",
     ruta: "/inventarios",
@@ -84,11 +84,11 @@ const SIMULADORES: Simulador[] = [
   },
   {
     id: "programacion-lineal",
-    nombre: "Optimizacion Lineal",
-    subtitulo: "Asignacion de recursos escasos",
+    nombre: "Optimización Lineal",
+    subtitulo: "Asignación de recursos escasos",
     descripcion:
-      "Formulen y resuelvan problemas de programacion lineal para asignar recursos limitados. Interpreten precios sombra y analicen sensibilidad de la solucion optima.",
-    area: "Metodos Cuantitativos",
+      "Formulen y resuelvan problemas de programación lineal. Interpreten precios sombra y analicen sensibilidad de la solución óptima.",
+    area: "Métodos Cuantitativos",
     duracion: "75 min",
     icono: "LP",
     ruta: "/optimizacion-lineal",
@@ -130,9 +130,8 @@ export default function App({ usuario, onCerrar }: AppProps) {
                   Simuladores de Operaciones
                 </h1>
                 <p className="text-navy-200 mt-2 text-sm lg:text-base max-w-xl">
-                  Herramientas interactivas para la toma de decisiones basada en datos.
-                  Cada simulador plantea un problema real de operaciones que los equipos
-                  deben resolver bajo restricciones de tiempo e informacion.
+                  Toma de decisiones basada en datos. Cada simulador plantea un problema
+                  real que los equipos resuelven bajo restricciones de tiempo e información.
                 </p>
               </div>
             </div>
@@ -171,7 +170,7 @@ export default function App({ usuario, onCerrar }: AppProps) {
         <footer className="mt-12 pt-6 border-t border-neutral-200 flex items-center justify-center gap-2">
           <img src={IPADE_LOGO_URL} alt="" className="w-5 h-5 object-contain opacity-40" />
           <p className="text-xs text-neutral-400">
-            IPADE Business School / Direccion de Operaciones
+            IPADE Business School / Dirección de Operaciones
           </p>
         </footer>
       </main>
@@ -212,7 +211,7 @@ function SimuladorCard({
           </div>
           {!activo && (
             <span className="ml-auto shrink-0 text-[10px] font-medium uppercase tracking-wider bg-neutral-100 text-neutral-500 px-2 py-0.5 rounded-full">
-              Proximamente
+              Próximamente
             </span>
           )}
         </div>

@@ -20,10 +20,10 @@ const COLOR_VEREDICTO: Record<string, string> = {
 };
 
 const ETIQUETA_VEREDICTO: Record<string, string> = {
-  correcto: "Diagnostico correcto",
-  mediador: "Identificaron un mediador, no la causa raiz",
+  correcto: "Diagnóstico correcto",
+  mediador: "Identificaron un mediador, no la causa raíz",
   confusor: "Cayeron en la trampa del confusor",
-  incorrecto: "Diagnostico incorrecto",
+  incorrecto: "Diagnóstico incorrecto",
 };
 
 export default function VistaCierre() {
@@ -125,7 +125,7 @@ export default function VistaCierre() {
           <div className="flex items-center gap-3">
             <img src={IPADE_LOGO_URL} alt="IPADE" className="h-9 w-9 object-contain" />
             <div>
-              <h1 className="text-lg font-bold font-display">Consejo de Administracion / ETF Bank</h1>
+              <h1 className="text-lg font-bold font-display">Consejo de Administración / ETF Bank</h1>
               <p className="text-navy-200 text-xs">{equipoNombre}</p>
             </div>
           </div>
@@ -141,9 +141,9 @@ export default function VistaCierre() {
       <div className="max-w-3xl mx-auto px-6 py-8 space-y-8">
         {/* Formulario de diagnostico */}
         <div className="bg-white rounded-2xl shadow-sm border border-neutral-200 p-6">
-          <h2 className="text-lg font-semibold text-navy-700 mb-1">Diagnostico del equipo</h2>
+          <h2 className="text-lg font-semibold text-navy-700 mb-1">Diagnóstico del equipo</h2>
           <p className="text-sm text-neutral-500 mb-5">
-            Presenten su analisis al consejo de administracion del banco.
+            Presenten su análisis al consejo de administración.
           </p>
 
           {error && (
@@ -155,13 +155,13 @@ export default function VistaCierre() {
           <form onSubmit={enviarDiagnostico} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-neutral-700 mb-1">
-                Causa raiz identificada <span className="text-red-500">*</span>
+                Causa raíz identificada <span className="text-red-500">*</span>
               </label>
               <textarea
                 value={causaRaiz}
                 onChange={(e) => setCausaRaiz(e.target.value)}
                 className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-navy-500 min-h-[80px]"
-                placeholder="Cual es la causa principal de que el proceso tarde tanto?"
+                placeholder="¿Cuál es la causa principal del retraso?"
                 required
                 disabled={!!preguntas}
               />
@@ -175,7 +175,7 @@ export default function VistaCierre() {
                 value={propuesta}
                 onChange={(e) => setPropuesta(e.target.value)}
                 className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-navy-500 min-h-[80px]"
-                placeholder="Que accion concreta proponen para reducir el tiempo de ciclo?"
+                placeholder="¿Qué acción concreta proponen?"
                 required
                 disabled={!!preguntas}
               />
@@ -190,7 +190,7 @@ export default function VistaCierre() {
                 value={impacto}
                 onChange={(e) => setImpacto(e.target.value)}
                 className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-navy-500"
-                placeholder="Ej: Reduccion de 30% en dias de ciclo"
+                placeholder="Ej: Reducción de 30% en días de ciclo"
                 disabled={!!preguntas}
               />
             </div>
@@ -201,7 +201,7 @@ export default function VistaCierre() {
                 disabled={enviando}
                 className="w-full bg-gold-600 text-white font-medium py-2.5 px-4 rounded-xl text-sm hover:bg-gold-700 transition-all duration-200 disabled:opacity-50"
               >
-                {enviando ? "Consultando al consejo..." : "Presentar al consejo de administracion"}
+                {enviando ? "Consultando al consejo..." : "Presentar al consejo de administración"}
               </button>
             )}
           </form>
@@ -258,7 +258,7 @@ export default function VistaCierre() {
               }}
               className="text-sm text-navy-600 hover:text-navy-800 underline"
             >
-              Revisar y enviar otro diagnostico
+              Revisar y enviar otro diagnóstico
             </button>
           </div>
         )}
