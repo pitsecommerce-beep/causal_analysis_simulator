@@ -45,7 +45,7 @@ export default function Cronometro({ inicioMs, mostrarFases = false }: Props) {
   return (
     <div className="space-y-3">
       <div className="flex items-center gap-3">
-        <div className="font-mono text-2xl font-bold text-navy-700 tabular-nums">
+        <div className="font-dato text-2xl font-medium text-navy-700 tabular-nums">
           {String(mins).padStart(2, "0")}:{String(segs).padStart(2, "0")}
         </div>
         <span className="text-sm text-neutral-500">/ 70:00</span>
@@ -67,7 +67,7 @@ export default function Cronometro({ inicioMs, mostrarFases = false }: Props) {
                       : "text-neutral-600"
                 }`}
               >
-                <span className="w-16 tabular-nums font-mono">
+                <span className="w-16 tabular-nums font-dato">
                   {fase.inicio}–{fase.fin}
                 </span>
                 <span className="flex-1">{fase.nombre}</span>

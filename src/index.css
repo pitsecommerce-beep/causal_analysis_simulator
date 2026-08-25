@@ -4,15 +4,37 @@
 
 @layer base {
   body {
-    @apply bg-white text-neutral-900 font-sans antialiased;
+    @apply bg-white text-neutral-900 font-texto antialiased;
+    font-size: 16px;
+    line-height: 1.5;
   }
 
   h1, h2, h3, h4 {
-    @apply font-display;
+    @apply font-titulo;
     text-wrap: balance;
   }
 
   p {
     text-wrap: pretty;
+  }
+
+  .font-dato,
+  .font-mono {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1;
+  }
+
+  .cifras-tabulares {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1;
+  }
+
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1;
+  }
+
+  .proyectada {
+    font-size: 20px;
   }
 }

@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { IPADE_LOGO_URL } from "./lib/constantes";
+import type { Usuario } from "./lib/auth";
+import { cerrarSesion } from "./lib/auth";
 
 interface Simulador {
   id: string;
@@ -18,7 +20,7 @@ const SIMULADORES: Simulador[] = [
   {
     id: "analisis-causal",
     nombre: "Analisis Causal",
-    subtitulo: "ETF Bank — Tarjetas de credito",
+    subtitulo: "ETF Bank / Tarjetas de credito",
     descripcion:
       "Identifiquen la causa raiz de los retrasos en el proceso de solicitud de tarjetas. Distingan correlacion de causalidad usando segmentacion, correlaciones e intervenciones contrafactuales.",
     area: "Direccion de Operaciones",
@@ -100,12 +102,17 @@ const ICONOS_BG: Record<string, string> = {
   gold: "bg-gold-600 text-white",
 };
 
-export default function App() {
+interface AppProps {
+  usuario: Usuario;
+  onCerrar: () => void;
+}
+
+export default function App({ usuario, onCerrar }: AppProps) {
   const navigate = useNavigate();
+  const esDocente = usuario.rol === "docente" || usuario.rol === "superadmin";
 
   return (
     <div className="min-h-screen bg-navy-50">
-      {/* Header */}
       <header className="bg-navy-700 text-white">
         <div className="max-w-6xl mx-auto px-6 py-8 lg:py-12">
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
@@ -129,19 +136,27 @@ export default function App() {
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-4 text-sm">
+            <div className="flex items-center gap-3 text-sm">
+              <span className="text-navy-200 text-xs">{usuario.email}</span>
+              {esDocente && (
+                <button
+                  onClick={() => navigate("/profesor")}
+                  className="px-4 py-2 bg-navy-600 hover:bg-navy-500 rounded text-white transition-colors"
+                >
+                  Panel de profesor
+                </button>
+              )}
               <button
-                onClick={() => navigate("/profesor")}
-                className="px-4 py-2 bg-navy-600 hover:bg-navy-500 rounded text-white transition-colors"
+                onClick={onCerrar}
+                className="px-4 py-2 bg-navy-800 hover:bg-navy-900 rounded text-navy-200 hover:text-white transition-colors"
               >
-                Acceso de profesor
+                Salir
               </button>
             </div>
           </div>
         </div>
       </header>
 
-      {/* Grid de simuladores */}
       <main className="max-w-6xl mx-auto px-6 py-8 lg:py-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {SIMULADORES.map((sim) => (
@@ -156,7 +171,7 @@ export default function App() {
         <footer className="mt-12 pt-6 border-t border-neutral-200 flex items-center justify-center gap-2">
           <img src={IPADE_LOGO_URL} alt="" className="w-5 h-5 object-contain opacity-40" />
           <p className="text-xs text-neutral-400">
-            IPADE Business School — Direccion de Operaciones
+            IPADE Business School / Direccion de Operaciones
           </p>
         </footer>
       </main>

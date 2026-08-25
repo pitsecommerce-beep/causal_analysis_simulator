@@ -52,7 +52,7 @@ export default function EntradaAnalisisCausal() {
               Analisis Causal
             </h1>
             <p className="text-neutral-500 text-sm mt-1">
-              ETF Bank — Proceso de tarjetas de credito
+              ETF Bank / Proceso de tarjetas de credito
             </p>
           </div>
 
