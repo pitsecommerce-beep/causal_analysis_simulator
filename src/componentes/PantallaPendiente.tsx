@@ -43,7 +43,7 @@ export default function PantallaPendiente({ usuario, onCambio, onCerrar }: Props
           className="w-14 h-14 object-contain mx-auto mb-4"
         />
 
-        <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-8">
+        <div className="bg-white rounded-2xl shadow-sm border border-neutral-200 p-8">
           <div className="w-12 h-12 rounded-full bg-gold-100 text-gold-800 flex items-center justify-center mx-auto mb-4">
             <svg
               className="w-6 h-6"
@@ -73,7 +73,7 @@ export default function PantallaPendiente({ usuario, onCambio, onCerrar }: Props
 
           <button
             onClick={onCerrar}
-            className="text-sm text-navy-600 hover:text-navy-800 underline"
+            className="text-sm text-navy-600 hover:text-navy-800 underline transition-colors duration-200"
           >
             Cerrar sesion
           </button>

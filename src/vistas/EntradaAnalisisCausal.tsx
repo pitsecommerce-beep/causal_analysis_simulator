@@ -56,7 +56,7 @@ export default function EntradaAnalisisCausal() {
             </p>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-8">
+          <div className="bg-white rounded-2xl shadow-sm border border-neutral-200 p-8">
             <form onSubmit={crearEquipoRapido} className="space-y-5">
               <div>
                 <label
@@ -70,7 +70,7 @@ export default function EntradaAnalisisCausal() {
                   type="text"
                   value={grupoId}
                   onChange={(e) => setGrupoId(e.target.value)}
-                  className="w-full rounded border border-neutral-300 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-navy-500 focus:border-transparent"
+                  className="w-full rounded-xl border border-neutral-300 px-3 py-2.5 text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-navy-500 focus:border-transparent"
                   placeholder="Pegue el codigo que le dio el profesor"
                   required
                 />
@@ -87,14 +87,14 @@ export default function EntradaAnalisisCausal() {
                   type="text"
                   value={nombre}
                   onChange={(e) => setNombre(e.target.value)}
-                  className="w-full rounded border border-neutral-300 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-navy-500 focus:border-transparent"
+                  className="w-full rounded-xl border border-neutral-300 px-3 py-2.5 text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-navy-500 focus:border-transparent"
                   placeholder="Ej: Equipo Alfa"
                   required
                 />
               </div>
               <button
                 type="submit"
-                className="w-full bg-navy-700 text-white font-medium py-2.5 px-4 rounded text-sm hover:bg-navy-800 transition-colors focus:outline-none focus:ring-2 focus:ring-navy-500 focus:ring-offset-2"
+                className="w-full bg-navy-700 text-white font-medium py-2.5 px-4 rounded-xl text-sm hover:bg-navy-800 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-navy-500 focus:ring-offset-2"
               >
                 Entrar al simulador
               </button>

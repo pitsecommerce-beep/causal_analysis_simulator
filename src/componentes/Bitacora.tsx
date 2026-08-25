@@ -37,10 +37,10 @@ export default function Bitacora({ consultas }: Props) {
       {consultas.map((c, i) => (
         <div
           key={c.id || i}
-          className="flex items-start gap-3 p-3 bg-neutral-50 rounded text-sm"
+          className="flex items-start gap-3 p-3 bg-neutral-50 rounded-xl text-sm"
         >
           <span
-            className={`w-6 h-6 rounded flex items-center justify-center text-xs font-bold shrink-0 ${COLOR_TIPO[c.tipo] ?? "bg-neutral-200"}`}
+            className={`w-6 h-6 rounded-lg flex items-center justify-center text-xs font-bold shrink-0 ${COLOR_TIPO[c.tipo] ?? "bg-neutral-200"}`}
           >
             {ICONO_TIPO[c.tipo] ?? "?"}
           </span>

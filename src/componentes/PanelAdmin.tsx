@@ -52,7 +52,7 @@ export default function PanelAdmin({ usuario }: Props) {
   if (!esSuper) return null;
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-5">
+    <div className="bg-white rounded-2xl shadow-sm border border-neutral-200 p-5">
       <h2 className="text-sm font-semibold text-navy-700 mb-4">
         Administracion de usuarios
       </h2>
@@ -60,7 +60,7 @@ export default function PanelAdmin({ usuario }: Props) {
       <div className="flex gap-2 mb-4">
         <button
           onClick={() => setTab("pendientes")}
-          className={`px-3 py-1.5 rounded text-xs font-medium transition-colors ${
+          className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 ${
             tab === "pendientes"
               ? "bg-gold-100 text-gold-800"
               : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
@@ -70,7 +70,7 @@ export default function PanelAdmin({ usuario }: Props) {
         </button>
         <button
           onClick={() => setTab("todos")}
-          className={`px-3 py-1.5 rounded text-xs font-medium transition-colors ${
+          className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 ${
             tab === "todos"
               ? "bg-navy-100 text-navy-700"
               : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
@@ -90,7 +90,7 @@ export default function PanelAdmin({ usuario }: Props) {
             {pendientes.map((u) => (
               <div
                 key={u.id}
-                className="flex items-center justify-between p-3 bg-gold-50 border border-gold-100 rounded"
+                className="flex items-center justify-between p-3 bg-gold-50 border border-gold-100 rounded-xl"
               >
                 <div>
                   <p className="text-sm font-medium text-neutral-700">{u.email}</p>
@@ -99,13 +99,13 @@ export default function PanelAdmin({ usuario }: Props) {
                 <div className="flex gap-2">
                   <button
                     onClick={() => cambiarEstado(u.id, "aprobado")}
-                    className="px-3 py-1 bg-green-600 text-white rounded text-xs font-medium hover:bg-green-700 transition-colors"
+                    className="px-3 py-1 bg-green-600 text-white rounded-lg text-xs font-medium hover:bg-green-700 transition-all duration-200"
                   >
                     Aprobar
                   </button>
                   <button
                     onClick={() => cambiarEstado(u.id, "denegado")}
-                    className="px-3 py-1 bg-red-600 text-white rounded text-xs font-medium hover:bg-red-700 transition-colors"
+                    className="px-3 py-1 bg-red-600 text-white rounded-lg text-xs font-medium hover:bg-red-700 transition-all duration-200"
                   >
                     Denegar
                   </button>

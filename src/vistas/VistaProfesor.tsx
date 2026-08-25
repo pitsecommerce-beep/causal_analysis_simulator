@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { invocarFuncion, supabase } from "../lib/supabase";
 import { IPADE_LOGO_URL } from "../lib/constantes";
 import Cronometro from "../componentes/Cronometro";
@@ -28,6 +29,7 @@ interface Props {
 }
 
 export default function VistaProfesor({ usuario, onCerrar }: Props) {
+  const navigate = useNavigate();
   const [grupos, setGrupos] = useState<Grupo[]>([]);
   const [grupoActivo, setGrupoActivo] = useState<Grupo | null>(null);
   const [equipos, setEquipos] = useState<EquipoResumen[]>([]);
@@ -169,8 +171,14 @@ export default function VistaProfesor({ usuario, onCerrar }: Props) {
           )}
           <span className="text-xs text-navy-200">{usuario.email}</span>
           <button
+            onClick={() => navigate("/")}
+            className="text-xs text-navy-200 hover:text-white underline transition-colors duration-200"
+          >
+            Simuladores
+          </button>
+          <button
             onClick={onCerrar}
-            className="text-xs text-navy-200 hover:text-white underline"
+            className="text-xs text-navy-200 hover:text-white underline transition-colors duration-200"
           >
             Salir
           </button>
@@ -179,11 +187,11 @@ export default function VistaProfesor({ usuario, onCerrar }: Props) {
 
       <div className="max-w-7xl mx-auto px-6 py-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="space-y-6">
-          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-5">
+          <div className="bg-white rounded-2xl shadow-sm border border-neutral-200 p-5">
             <h2 className="text-sm font-semibold text-navy-700 mb-4">Crear nuevo grupo</h2>
 
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded p-3 mb-3">
+              <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl p-3 mb-3">
                 {error}
               </div>
             )}
@@ -197,7 +205,7 @@ export default function VistaProfesor({ usuario, onCerrar }: Props) {
                   type="text"
                   value={nombreGrupo}
                   onChange={(e) => setNombreGrupo(e.target.value)}
-                  className="w-full rounded border border-neutral-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-navy-500"
+                  className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-navy-500"
                   placeholder="Ej: MEDEX X1, Sesion 3"
                   required
                 />
@@ -210,21 +218,21 @@ export default function VistaProfesor({ usuario, onCerrar }: Props) {
                   type="number"
                   value={semilla}
                   onChange={(e) => setSemilla(e.target.value)}
-                  className="w-full rounded border border-neutral-300 px-3 py-2 text-sm font-dato focus:outline-none focus:ring-2 focus:ring-navy-500"
+                  className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-sm font-dato transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-navy-500"
                   required
                 />
               </div>
               <button
                 type="submit"
                 disabled={creando}
-                className="w-full bg-navy-700 text-white font-medium py-2 px-4 rounded text-sm hover:bg-navy-800 transition-colors disabled:opacity-50"
+                className="w-full bg-navy-700 text-white font-medium py-2 px-4 rounded-xl text-sm hover:bg-navy-800 transition-all duration-200 disabled:opacity-50"
               >
                 {creando ? "Generando 103 casos..." : "Crear grupo y generar datos"}
               </button>
             </form>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-5">
+          <div className="bg-white rounded-2xl shadow-sm border border-neutral-200 p-5">
             <h3 className="text-sm font-semibold text-navy-700 mb-3">Grupos existentes</h3>
             {grupos.length === 0 ? (
               <p className="text-sm text-neutral-400 text-center py-4">Sin grupos</p>
@@ -234,7 +242,7 @@ export default function VistaProfesor({ usuario, onCerrar }: Props) {
                   <button
                     key={g.id}
                     onClick={() => setGrupoActivo(g)}
-                    className={`w-full text-left p-3 rounded text-sm transition-colors ${
+                    className={`w-full text-left p-3 rounded-xl text-sm transition-all duration-200 ${
                       grupoActivo?.id === g.id
                         ? "bg-navy-50 border border-navy-200"
                         : "bg-neutral-50 hover:bg-neutral-100"
@@ -258,12 +266,12 @@ export default function VistaProfesor({ usuario, onCerrar }: Props) {
 
         <div className="lg:col-span-2 space-y-6">
           {!grupoActivo ? (
-            <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-12 text-center">
+            <div className="bg-white rounded-2xl shadow-sm border border-neutral-200 p-12 text-center">
               <p className="text-neutral-400">Seleccione o cree un grupo para comenzar</p>
             </div>
           ) : (
             <>
-              <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-5">
+              <div className="bg-white rounded-2xl shadow-sm border border-neutral-200 p-5">
                 <div className="flex items-start justify-between mb-4">
                   <div>
                     <h2 className="text-lg font-semibold text-navy-700">{grupoActivo.nombre}</h2>
@@ -272,32 +280,32 @@ export default function VistaProfesor({ usuario, onCerrar }: Props) {
                   <div className="flex gap-2">
                     <button
                       onClick={copiarCodigo}
-                      className="px-3 py-1.5 bg-neutral-100 text-neutral-700 rounded text-xs font-medium hover:bg-neutral-200 transition-colors"
+                      className="px-3 py-1.5 bg-neutral-100 text-neutral-700 rounded-lg text-xs font-medium hover:bg-neutral-200 transition-all duration-200"
                     >
                       {copiado ? "Copiado" : "Copiar codigo de grupo"}
                     </button>
                     {!grupoActivo.dag_revelado && (
                       <button
                         onClick={revelarDAG}
-                        className="px-3 py-1.5 bg-gold-100 text-gold-800 rounded text-xs font-medium hover:bg-gold-200 transition-colors"
+                        className="px-3 py-1.5 bg-gold-100 text-gold-800 rounded-lg text-xs font-medium hover:bg-gold-200 transition-all duration-200"
                       >
                         Revelar DAG
                       </button>
                     )}
                     {grupoActivo.dag_revelado && (
-                      <span className="px-3 py-1.5 bg-green-100 text-green-700 rounded text-xs font-medium">
+                      <span className="px-3 py-1.5 bg-green-100 text-green-700 rounded-lg text-xs font-medium">
                         DAG revelado
                       </span>
                     )}
                   </div>
                 </div>
 
-                <div className="bg-neutral-50 rounded p-3 font-dato text-xs text-neutral-600 select-all">
+                <div className="bg-neutral-50 rounded-xl p-3 font-dato text-xs text-neutral-600 select-all">
                   {grupoActivo.id}
                 </div>
               </div>
 
-              <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-5">
+              <div className="bg-white rounded-2xl shadow-sm border border-neutral-200 p-5">
                 <h3 className="text-sm font-semibold text-navy-700 mb-3">Cronometro de sesion</h3>
                 <Cronometro
                   inicioMs={new Date(grupoActivo.creado_en).getTime()}
@@ -305,7 +313,7 @@ export default function VistaProfesor({ usuario, onCerrar }: Props) {
                 />
               </div>
 
-              <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-5">
+              <div className="bg-white rounded-2xl shadow-sm border border-neutral-200 p-5">
                 <h3 className="text-sm font-semibold text-navy-700 mb-4">
                   Equipos ({equipos.length})
                 </h3>

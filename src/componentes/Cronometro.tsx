@@ -59,7 +59,7 @@ export default function Cronometro({ inicioMs, mostrarFases = false }: Props) {
             return (
               <div
                 key={fase.nombre}
-                className={`flex items-center gap-2 text-xs py-1 px-2 rounded ${
+                className={`flex items-center gap-2 text-xs py-1 px-2 rounded-lg transition-all duration-300 ${
                   activa
                     ? "bg-navy-50 text-navy-700 font-medium"
                     : pasada
