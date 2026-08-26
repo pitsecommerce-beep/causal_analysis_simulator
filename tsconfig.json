@@ -15,9 +15,11 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "paths": {
-      "@shared/*": ["./supabase/functions/_shared/*"]
+      "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "tests", "supabase/functions/_shared"]
+  "include": ["src", "tests", "config"]
 }

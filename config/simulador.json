@@ -1,0 +1,269 @@
+{
+  "fases": {
+    "sala_de_juntas": { "inicio": 0, "duracion": 6 },
+    "voz_del_cliente": { "inicio": 6, "duracion": 4 },
+    "transicion": { "inicio": 10, "duracion": 2 },
+    "trimestre_1": { "inicio": 12, "duracion": 14 },
+    "trimestre_2": { "inicio": 26, "duracion": 10 },
+    "trimestre_3": { "inicio": 36, "duracion": 9 },
+    "consejo": { "inicio": 45, "duracion": 5 }
+  },
+  "equipos": {
+    "tamano": 4,
+    "creditos_iniciales": 12,
+    "presupuesto_inicial": 100
+  },
+  "costos_consulta": {
+    "segmentar": 1,
+    "correlacionar": 1,
+    "serie_de_tiempo": 1,
+    "embudo": 1,
+    "intervenir": 3
+  },
+  "linea_base": {
+    "ciclo_mediano": 26.5,
+    "ventana_captura_mediana": 17,
+    "back_office_mediano": 9.5,
+    "quejas_indice": 100,
+    "conversion": 0.487,
+    "intentos_media": 1.96,
+    "tasa_reproceso": 0.598,
+    "errores_por_100": 87.9,
+    "errores_captura": 659,
+    "incompletos": 472,
+    "ilegibles": 187,
+    "total_errores": 1318,
+    "atorados_pct": 0.163,
+    "atorados_abs": 142,
+    "trabajo_perdido_pct": 0.25,
+    "trabajo_perdido_abs": 375,
+    "dias_perdidos_en_rechazados": 6758,
+    "n": 1500,
+    "embudo": {
+      "total": 1500,
+      "buro_corrido": 1397,
+      "buro_aceptado": 1022,
+      "score_aceptado": 873,
+      "plastico_enviado": 731
+    }
+  },
+  "sucursales_foco": [110, 676, 728],
+  "errores_por_sucursal_foco": {
+    "110": { "captura": 120, "total": 203, "n": 171 },
+    "676": { "captura": 114, "total": 193, "n": 151 },
+    "728": { "captura": 83, "total": 134, "n": 117 }
+  },
+  "modelo_motor": {
+    "base_captura_sin_error": 5.0,
+    "dias_por_reintento": 12.5,
+    "factor_trabajo_perdido_en_ventana": 0.12,
+    "factor_atorados_en_quejas": 1.5
+  },
+  "intervenciones": [
+    {
+      "id": 1,
+      "nombre": "Checklist documental con validación en C.R.A.S.S.",
+      "costo": 15,
+      "retraso_trimestres": 1,
+      "efectos": {
+        "incompletos_factor": 0.30,
+        "ilegibles_factor": 0.50
+      },
+      "efectos_secundarios": {}
+    },
+    {
+      "id": 2,
+      "nombre": "Capacitación focalizada en sucursales nombradas",
+      "costo": 25,
+      "retraso_trimestres": 1,
+      "requiere_sucursales": true,
+      "efectos": {
+        "error_captura_factor_en_nombradas": 0.40
+      },
+      "efectos_secundarios": {
+        "vulnerable_a_rotacion": true
+      }
+    },
+    {
+      "id": 3,
+      "nombre": "Capacitación masiva a las 18 sucursales",
+      "costo": 100,
+      "retraso_trimestres": 2,
+      "efectos": {
+        "error_captura_factor_global": 0.40
+      },
+      "efectos_secundarios": {}
+    },
+    {
+      "id": 4,
+      "nombre": "Consultar buró antes de la captura completa",
+      "costo": 10,
+      "retraso_trimestres": 1,
+      "efectos": {
+        "trabajo_perdido_factor": 0.72,
+        "ventana_bonus_dias": -2.5
+      },
+      "efectos_secundarios": {}
+    },
+    {
+      "id": 5,
+      "nombre": "Automatizar el disparo de envío de plástico",
+      "costo": 10,
+      "retraso_trimestres": 1,
+      "efectos": {
+        "atorados_nuevo_pct": 0.02,
+        "quejas_factor": 0.75
+      },
+      "efectos_secundarios": {
+        "efecto_en_captura": 0
+      }
+    },
+    {
+      "id": 6,
+      "nombre": "Dos revisores más en CrOP",
+      "costo": 35,
+      "retraso_trimestres": 0,
+      "efectos": {
+        "back_office_nuevo": 6.0
+      },
+      "efectos_secundarios": {
+        "costo_fijo_permanente": true
+      }
+    },
+    {
+      "id": 7,
+      "nombre": "Segmentar el proceso por perfil de cliente",
+      "costo": 20,
+      "retraso_trimestres": 1,
+      "efectos": {},
+      "efectos_secundarios": {
+        "efecto_nulo": true
+      }
+    },
+    {
+      "id": 8,
+      "nombre": "Endurecer el umbral del score interno",
+      "costo": 5,
+      "retraso_trimestres": 0,
+      "efectos": {
+        "ciclo_reduccion_aparente": 5,
+        "conversion_factor": 0.65
+      },
+      "efectos_secundarios": {
+        "metrica_traicionera": true
+      }
+    },
+    {
+      "id": 9,
+      "nombre": "Bono por velocidad a ejecutivos",
+      "costo": 15,
+      "retraso_trimestres": 0,
+      "efectos": {
+        "ventana_factor_inmediato": 0.88,
+        "errores_factor_diferido": 1.25,
+        "quejas_factor_diferido": 1.18,
+        "trimestre_efecto_negativo": 3
+      },
+      "efectos_secundarios": {
+        "incentivo_perverso": true
+      }
+    },
+    {
+      "id": 10,
+      "nombre": "Reemplazo integral del C.R.A.S.S.",
+      "costo": 100,
+      "retraso_trimestres": 4,
+      "efectos": {},
+      "efectos_secundarios": {
+        "fuera_de_horizonte": true
+      }
+    }
+  ],
+  "eventos_aleatorios": [
+    {
+      "id": "auditoria",
+      "nombre": "Auditoría regulatoria",
+      "efecto": { "back_office_incremento": 2, "duracion_trimestres": 1 }
+    },
+    {
+      "id": "renuncia",
+      "nombre": "Renuncia del gerente de una sucursal foco",
+      "efecto": { "reversion_capacitacion": 0.40 }
+    },
+    {
+      "id": "competencia",
+      "nombre": "Campaña de la competencia",
+      "efecto": { "abandono_si_ciclo_mayor_a": 20, "abandono_incremento": 0.15 }
+    },
+    {
+      "id": "pico",
+      "nombre": "Pico estacional",
+      "efecto": { "volumen_incremento": 0.30, "carga_incremento": true, "errores_incremento": true }
+    },
+    {
+      "id": "prensa",
+      "nombre": "Nota en prensa",
+      "efecto": { "quejas_visibles_multiplicador": 1.5, "quejas_reales_cambio": 0 }
+    },
+    {
+      "id": "rotacion_crop",
+      "nombre": "Rotación en CrOP",
+      "efecto": { "capacidad_reduccion": 2, "duracion_trimestres": 1 }
+    },
+    {
+      "id": "regulatorio",
+      "nombre": "Cambio regulatorio de documentación",
+      "efecto": { "ilegibles_incremento": 0.20 }
+    }
+  ],
+  "eventos_por_partida": 3,
+  "puntuacion": {
+    "diagnostico": {
+      "ventana_captura_cuello": 120,
+      "reproceso_documental_mecanismo": 100,
+      "fuga_aprobados_sin_plastico": 70,
+      "trabajo_perdido_secuencia_buro": 60,
+      "penalizacion_causa_espuria": -40,
+      "penalizacion_concentracion_sin_masa": -30
+    },
+    "rigor": {
+      "pareto_estratificacion": 40,
+      "dispersion_interpretacion": 40,
+      "embudo_etapas": 40,
+      "hipotesis_antes_consulta": 40,
+      "cruce_comentarios_datos": 40
+    },
+    "impacto": {
+      "reduccion_ciclo": 110,
+      "reduccion_quejas": 80,
+      "conversion_preservada": 70,
+      "presupuesto_no_gastado": 40
+    },
+    "velocidad": {
+      "max_puntos": 100,
+      "minuto_max": 25,
+      "minuto_min": 45,
+      "puntos_minimo": 20
+    },
+    "eficiencia": {
+      "max_puntos": 50
+    },
+    "penalizaciones": {
+      "empeora_kpi": { "min": -50, "max": -150 },
+      "metrica_a_costa_negocio": -120,
+      "incentivo_perverso": -80,
+      "presupuesto_agotado_sin_efecto": -100
+    }
+  },
+  "desempate": ["diagnostico", "impacto", "velocidad"],
+  "escenarios": {
+    "A": { "nombre": "Reconversión", "rango": [900, 1000] },
+    "B": { "nombre": "Buen proyecto incompleto", "rango": [700, 899] },
+    "C": { "nombre": "Ataque al mediador", "rango": [450, 649] },
+    "D": { "nombre": "La métrica traicionera", "rango": [300, 449] },
+    "E": { "nombre": "El incentivo perverso", "rango": [250, 449] },
+    "F": { "nombre": "Dispersión", "rango": [150, 349] },
+    "G": { "nombre": "Parálisis por análisis", "rango": [100, 299] },
+    "H": { "nombre": "Falso positivo", "rango": [0, 1000] }
+  }
+}

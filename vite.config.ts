@@ -4,10 +4,13 @@ import path from "path";
 
 export default defineConfig({
   plugins: [react()],
+  root: ".",
+  build: {
+    outDir: "dist/cliente",
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      "@shared": path.resolve(__dirname, "./supabase/functions/_shared"),
     },
   },
 });
